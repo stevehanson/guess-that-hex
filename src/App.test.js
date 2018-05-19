@@ -5,6 +5,10 @@ import toJson from 'enzyme-to-json'
 import App from './App'
 import Landing from './Landing'
 
+beforeAll(() => {
+  window.localStorage = { getItem: ()=>{}, setItem: ()=>{} }
+})
+
 test('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
@@ -38,7 +42,7 @@ test('can join a game', () => {
 
 test('can create a new game', () =>  {
   const component = mount(<App />)
-  component.find('#new').simulate('click')
+  component.find('button#new').simulate('click')
   console.log(component.html())
   expect(toJson(component)).toMatchSnapshot()
 })

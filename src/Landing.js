@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium'
+import Button from './shared/button'
 import logo from './logo.png';
 
 class Landing extends Component {
@@ -8,8 +9,9 @@ class Landing extends Component {
     this.state = {
       option: '',
       gameId: '',
-      name: ''
+      name: localStorage.getItem('gth:name') || ''
     }
+    
   }
 
   gameIdChanged = (e) => {
@@ -17,24 +19,26 @@ class Landing extends Component {
   }
 
   nameChanged = (e) => {
-    this.setState({ name: e.target.value })
+    const name = e.target.value
+    this.setState({ name })
+    localStorage.setItem('gth:name', name)
   }
 
   renderOptions = () => {
     return (
       <div style={styles.actions}>
-        <button
+        <Button
           id="new"
           key="new"
           style={{...styles.button, ...styles.actionButton}}
           onClick={() => this.setState({ option: 'new' })}
-        >New Game</button>
-        <button
+        >New Game</Button>
+        <Button
           id="join"
           key="join"
           style={{...styles.button, ...styles.actionButton}}
           onClick={() => this.setState({ option: 'join' })}
-        >Join Game</button>
+        >Join Game</Button>
       </div>
     )
   }
@@ -60,11 +64,7 @@ class Landing extends Component {
           </div>
         )}
 
-        <input
-          type="submit"
-          key="submit"
-          style={styles.button}
-          value={buttonText} />
+        <Button type="submit">{buttonText}</Button>
       </form>
     )
   }
@@ -136,20 +136,8 @@ const styles = {
   },
   actions: {
     display: 'flex',
-    justifyContent: 'center'
-  },
-  button: {
-    border: 'none',
-    backgroundColor: '#00aced',
-    cursor: 'pointer',
-    padding: '0.9em 1em',
-    color: 'white',
-    borderRadius: '2px',
-    fontSize: '16px',
-    ':hover': {
-      backgroundColor: '#00bcfd',
-      transition: 'all 100ms'
-    }
+    justifyContent: 'center',
+    margin: '2em 0 1em'
   },
   actionButton: {
     margin: '0 0.5em'

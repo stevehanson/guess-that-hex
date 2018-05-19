@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GameControls from './GameControls';
 import GameStatus from './GameStatus';
+import WaitingForPlayers from './WaitingForPlayers'
 import logo from './logo.png';
 
 class Box extends Component {
@@ -25,39 +26,47 @@ class Game extends Component {
   render() {
     const { id, hex, creator, started, revealed, players, onStart, onReveal,
       onPlayerHexChanged } = this.props
+    const playerNames = Object.values(players)
 
     return (
       <div>
         <div style={styles.nav}>
-          <img src={logo} style={styles.logo} alt="guess that hex" />
+          <div style={styles.navContainer}>
+            <img src={logo} style={styles.logo} alt="guess that hex" />
+          </div>
         </div>
         {creator ? (
-          <GameControls
-            id={id}
-            started={started}
-            revealed={revealed}
-            onStart={onStart}
-            onReveal={onReveal}
-          />
+          null
         ) : (
           <GameStatus
             started={started}
             revealed={revealed}
           />
         )}
-        <div className="boxes">
-          {players && Object.entries(players).map(player => (
-            <Box
-              key={player[0]}
-              name={player[1].name}
-              hex={player[1].hex}
-              onHexChanged={hex => onPlayerHexChanged(player[0], hex)}
-            />
-          ))}
-        </div>
-        <div className="color-container">
-          <div className="color" style={{ backgroundColor: hex || '#fff' }}></div>
-        </div>
+        {started ? (
+          <div>
+            <div className="boxes">
+              {players && Object.entries(players).map(player => (
+                <Box
+                  key={player[0]}
+                  name={player[1].name}
+                  hex={player[1].hex}
+                  onHexChanged={hex => onPlayerHexChanged(player[0], hex)}
+                />
+              ))}
+            </div>
+            <div className="color-container">
+              <div className="color" style={{ backgroundColor: hex || '#fff' }}></div>
+            </div>
+          </div>
+        ) : (
+          <WaitingForPlayers
+            gameId={id}
+            players={playerNames}
+            creator={creator}
+            onStart={onStart}
+          />
+        )}
       </div>
     )
   }
@@ -65,10 +74,12 @@ class Game extends Component {
 
 const styles = {
   nav: {
+    borderBottom: '1px solid #eee',
+  },
+  navContainer: {
+    margin: '0 auto',
     width: '992px',
     maxWidth: '80%',
-    margin: '0 auto 1em',
-    borderBottom: '1px solid #eee'
   },
   logo: {
     width: '200px',
