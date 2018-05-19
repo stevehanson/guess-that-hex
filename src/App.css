@@ -1,0 +1,119 @@
+body {
+  margin: 0;
+}
+
+.boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  height: 100vh;
+}
+
+.box {
+  border: 1px solid #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box input {
+  font-size: 1.3em;
+  opacity: 0.8;
+  padding: 1em;
+  background-color: rgba(230, 230, 230, 0.4);
+  border: none;
+  border-bottom: 3px solid rgba(220, 220, 220, 0.4);
+  outline: none;
+}
+
+.buttons {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 0.2em;
+}
+
+.btn {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.5em 1em;
+  background: rgba(230, 230, 230, 0.5);
+  color: #555;
+  border: none;
+  font-weight: 100;
+  font-size: 0.8em;
+}
+
+.color-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.color {
+  width: 20%;
+  height: 30vh;
+  background: red;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 2em;
+}
+
+
+.GameControls, .GameStatus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.GameControls {
+  padding: 1em;
+  background: rgba(255,255,255,0.8);
+}
+
+.GameStatus {
+}
+
+.GameStatus__waiting {
+
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
