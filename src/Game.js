@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GameControls from './GameControls';
 import GameStatus from './GameStatus';
+import logo from './logo.png';
 
 class Box extends Component {
   render() {
@@ -26,6 +27,9 @@ class Game extends Component {
 
     return (
       <div>
+        <div style={styles.nav}>
+          <img src={logo} style={styles.logo} alt="guess that hex" />
+        </div>
         {creator ? (
           <GameControls
             id={id}
@@ -49,8 +53,8 @@ class Game extends Component {
             />
           ))}
         </div>
-        <div class="color-container">
-          <div class="color" style={{ backgroundColor: hex || '#fff' }}></div>
+        <div className="color-container">
+          <div className="color" style={{ backgroundColor: hex || '#fff' }}></div>
         </div>
       </div>
     )
@@ -58,6 +62,17 @@ class Game extends Component {
 }
 
 const styles = {
+  nav: {
+    width: '992px',
+    maxWidth: '80%',
+    margin: '0 auto 1em',
+    borderBottom: '1px solid #eee'
+  },
+  logo: {
+    width: '200px',
+    height: '61px',
+    margin: '0.75em 0 -1.4em'
+  },
 }
 
 export default Game;

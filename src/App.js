@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Game from './Game';
-import CreateOrJoin from './CreateOrJoin';
+import Landing from './Landing';
 import firebase from './firebase';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -70,28 +69,33 @@ class App extends Component {
   render() {
     const { gameId, creator, hex, revealed, started, players } = this.state
 
-    if(gameId) {
-      return (
-        <Game
-          id={gameId}
-          creator={creator}
-          hex={hex}
-          started={started}
-          revealed={revealed}
-          players={players}
-          onStart={this.startGame}
-          onReveal={this.revealAnswer}
-          onPlayerHexChanged={this.playerHexChanged}
-        />
-      )
-    } else {
-      return (
-        <CreateOrJoin
-          onJoin={this.joinGame}
-          onCreate={this.createGame}
-        />
-      )
-    }
+    return (
+      <div>
+        <div style={styles.content}>
+          {gameId ? (
+            <Game
+              id={gameId}
+              creator={creator}
+              hex={hex}
+              started={started}
+              revealed={revealed}
+              players={players}
+              onStart={this.startGame}
+              onReveal={this.revealAnswer}
+              onPlayerHexChanged={this.playerHexChanged}
+            />
+          ) : (
+            <Landing onJoin={this.joinGame} onCreate={this.createGame} />
+          )}
+        </div>
+      </div>
+    )
+  }
+}
+
+const styles = {
+  content: {
+
   }
 }
 
