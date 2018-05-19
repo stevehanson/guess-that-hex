@@ -23,7 +23,8 @@ class Game extends Component {
   }
 
   render() {
-    const { id, hex, creator, started, revealed, players, onStart, onReveal, onPlayerHexChanged } = this.props
+    const { id, hex, creator, started, revealed, players, onStart, onReveal,
+      onPlayerHexChanged } = this.props
 
     return (
       <div>
@@ -47,6 +48,7 @@ class Game extends Component {
         <div className="boxes">
           {players && Object.entries(players).map(player => (
             <Box
+              key={player[0]}
               name={player[1].name}
               hex={player[1].hex}
               onHexChanged={hex => onPlayerHexChanged(player[0], hex)}

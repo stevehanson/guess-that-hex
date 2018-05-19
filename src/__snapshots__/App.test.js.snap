@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can create a new game 1`] = `
+<App>
+  <div>
+    <div
+      style={Object {}}
+    >
+      <Landing
+        onCreate={[Function]}
+        onJoin={[Function]}
+      >
+        <div
+          data-radium={true}
+          style={
+            Object {
+              "backgroundColor": "tomato",
+              "minHeight": "100vh",
+              "padding": "4em 0",
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            data-radium={true}
+            style={
+              Object {
+                "backgroundColor": "#fafafa",
+                "borderRadius": "4px",
+                "margin": "4em auto",
+                "maxWidth": "98%",
+                "overflow": "hidden",
+                "width": "480px",
+              }
+            }
+          >
+            <div
+              data-radium={true}
+              key=".0"
+              style={
+                Object {
+                  "background": "#eee",
+                  "display": "flex",
+                  "justifyContent": "center",
+                  "padding": "1.7em 0 0",
+                }
+              }
+            >
+              <img
+                alt="guess that hex"
+                data-radium={true}
+                src="logo.png"
+                style={
+                  Object {
+                    "height": "92px",
+                    "marginBottom": "-1.1em",
+                    "width": "300px",
+                  }
+                }
+              />
+            </div>
+            <div
+              data-radium={true}
+              key=".1"
+              style={
+                Object {
+                  "padding": "2em 3em",
+                }
+              }
+            >
+              <h2
+                data-radium={true}
+                key=".0"
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Welcome to Guess that Hex!
+              </h2>
+              <div
+                data-radium={true}
+                key=".1"
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <button
+                  data-radium={true}
+                  id="new"
+                  key=".$new"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "backgroundColor": "#00aced",
+                      "border": "none",
+                      "borderRadius": "2px",
+                      "color": "white",
+                      "cursor": "pointer",
+                      "fontSize": "16px",
+                      "margin": "0 0.5em",
+                      "padding": "0.9em 1em",
+                    }
+                  }
+                >
+                  New Game
+                </button>
+                <button
+                  data-radium={true}
+                  id="join"
+                  key=".$join"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "backgroundColor": "#00aced",
+                      "border": "none",
+                      "borderRadius": "2px",
+                      "color": "white",
+                      "cursor": "pointer",
+                      "fontSize": "16px",
+                      "margin": "0 0.5em",
+                      "padding": "0.9em 1em",
+                    }
+                  }
+                >
+                  Join Game
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Landing>
+    </div>
+  </div>
+</App>
+`;
+
+exports[`renders the landing page 1`] = `
+<div>
+  <div
+    style={Object {}}
+  >
+    <Landing
+      onCreate={[Function]}
+      onJoin={[Function]}
+    />
+  </div>
+</div>
+`;

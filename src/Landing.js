@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Radium from 'radium'
 import logo from './logo.png';
 
 class Landing extends Component {
@@ -23,10 +24,14 @@ class Landing extends Component {
     return (
       <div style={styles.actions}>
         <button
+          id="new"
+          key="new"
           style={{...styles.button, ...styles.actionButton}}
           onClick={() => this.setState({ option: 'new' })}
         >New Game</button>
         <button
+          id="join"
+          key="join"
           style={{...styles.button, ...styles.actionButton}}
           onClick={() => this.setState({ option: 'join' })}
         >Join Game</button>
@@ -57,6 +62,8 @@ class Landing extends Component {
 
         <input
           type="submit"
+          key="submit"
+          style={styles.button}
           value={buttonText} />
       </form>
     )
@@ -125,7 +132,7 @@ const styles = {
     marginBottom: '0.2em'
   },
   input: {
-    width: '100%'
+    width: '100%',
   },
   actions: {
     display: 'flex',
@@ -133,15 +140,20 @@ const styles = {
   },
   button: {
     border: 'none',
-    backgroundColor: 'tomato',
+    backgroundColor: '#00aced',
+    cursor: 'pointer',
     padding: '0.9em 1em',
     color: 'white',
     borderRadius: '2px',
-    fontSize: '16px'
+    fontSize: '16px',
+    ':hover': {
+      backgroundColor: '#00bcfd',
+      transition: 'all 100ms'
+    }
   },
   actionButton: {
     margin: '0 0.5em'
   }
 }
 
-export default Landing;
+export default Radium(Landing);

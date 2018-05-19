@@ -1,64 +1,48 @@
 import React, { Component } from 'react';
 import Game from './Game';
 import Landing from './Landing';
-import firebase from './firebase';
+import Firebase from './firebase/index';
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      started: false,
-      creator: false,
-      gameId: null
-    }
+  firebase = new Firebase()
+  state = {
+    started: false,
+    creator: false,
+    revealed: false,
+    players: [],
+    gameId: null
   }
 
   createGame = (name) => {
     const hex = '#'+Math.floor(Math.random()*16777215).toString(16)
-    const gamesRef = firebase.database().ref('games');
-    const gameRef = gamesRef.push({
-      hex,
-      started: false,
-      revealed: false,
-      players: []
+    const gameId = this.firebase.createGame(hex)
+    this.setState({ hex, gameId, creator: true })
+    this.subscribeToAndJoinGame(gameId, name)
+  }
+
+  subscribeToAndJoinGame = (gameId, name) => {
+    this.firebase.subscribeToAndJoinGame(gameId, name, (gameVals) => {
+      this.setState(gameVals)
     })
-
-    this.setState({ hex, gameId: gameRef.key, creator: true })
-    this.subscribeToGame(gameRef.key)
-    this.addPlayerToGame(gameRef.key, name)
-  }
-
-  subscribeToGame = (id) => {
-    this.gameRef = firebase.database().ref(`games/${id}`)
-    this.gameRef.on('value', (snapshot) => {
-      const game = snapshot.val()
-      console.log(game)
-      this.setState(game)
-    });
-  }
-
-  addPlayerToGame = (id, name) => {
-    firebase.database().ref(`games/${id}/players`).push({ name })
   }
 
   updateGame = (vals) => {
     this.gameRef.set(vals)
   }
 
-  joinGame = (id, name) => {
-    this.setState({ gameId: id, creator: false })
-    this.subscribeToGame(id)
-    this.addPlayerToGame(id, name)
+  joinGame = (gameId, name) => {
+    this.setState({ gameId, creator: false })
+    this.subscribeToAndJoinGame(gameId, name)
   }
 
   startGame = () => {
-    this.updateGame({ started: true })
+    this.firebase.updateGame({ started: true })
     this.setState({ started: true })
   }
 
   revealAnswer = () => {
-    this.updateGame({ revealed: true })
+    this.firebase.updateGame({ revealed: true })
     this.setState({ revealed: true })
   }
 
