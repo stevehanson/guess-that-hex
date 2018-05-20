@@ -22,7 +22,9 @@ class Firebase {
       game.players = Object.entries(players || {}).map(([id, player]) => (
         { ...player, id }
       ))
-      console.log(game.players)
+
+      game.allSubmitted = players && players.length && players.every(p => !!p.hex)
+      console.log('players', game.players)
       console.log(game)
       onUpdate(game)
     });
@@ -37,11 +39,12 @@ class Firebase {
   }
 
   submitGuess(guess) {
-    this.playerRef.set({ guess })
+    console.log(`submitting ${guess}`)
+    this.playerRef.update({ guess })
   }
 
   updateGame(values) {
-    this.gameRef.set(values)
+    this.gameRef.update(values)
   }
 }
 

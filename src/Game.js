@@ -1,20 +1,8 @@
 import React, { Component } from 'react';
 import GameGuessing from './GameGuessing'
 import WaitingForPlayers from './WaitingForPlayers'
+import ResultBox from './ResultBox'
 import logo from './logo.png';
-
-class Box extends Component {
-  render() {
-    const { name } = this.props
-    return (
-      <div className="box">
-        <input style={styles.input} placeholder="#hex" />
-        {name}
-      </div>
-    )
-  }
-}
-
 
 class Game extends Component {
   constructor() {
@@ -25,7 +13,9 @@ class Game extends Component {
   renderGameContent() {
     const { started, revealed, hex, players, onSubmit } = this.props
 
-    if(started && !revealed) {
+    if(revealed) {
+      return this.renderReveal()
+    } else {
       return (
         <GameGuessing
           hex={hex}
@@ -33,15 +23,7 @@ class Game extends Component {
           players={players}
         />
       )
-    } else if(started) {
-      return this.renderReveal()
     }
-  }
-
-  renderInput() {
-    return (
-      <div>Input your guess</div>
-    )
   }
 
   renderReveal() {
@@ -49,12 +31,11 @@ class Game extends Component {
     
     return (
       <div>
-        <div className="boxes">
+        <div style={styles.boxes}>
           {players && players.map(player => (
-            <Box
+            <ResultBox
               key={player.id}
-              name={player.name}
-              hex={player.hex}
+              player={player}
             />
           ))}
         </div>
@@ -66,13 +47,16 @@ class Game extends Component {
   }
 
   render() {
-    const { id, creator, started, players, onStart, } = this.props
+    const { id, creator, started, players, onStart, onReveal } = this.props
 
     return (
       <div>
         <div style={styles.nav}>
           <div style={styles.navContainer}>
             <img src={logo} style={styles.logo} alt="guess that hex" />
+            <div style={styles.right}>
+              <a role="button" onClick={onReveal}>Reveal</a>
+            </div>
           </div>
         </div>
 
@@ -97,12 +81,21 @@ const styles = {
     margin: '0 auto',
     width: '992px',
     maxWidth: '80%',
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   logo: {
     width: '200px',
     height: '61px',
-    margin: '0.75em 0 -1.4em'
+    margin: '0.75em 0 -1.4em',
+    zIndex: '1'
   },
+  boxes: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gridTemplateRows: 'auto',
+    height: '100vh'
+  }
 }
 
 export default Game;

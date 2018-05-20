@@ -13,14 +13,6 @@ body {
   height: 100vh;
 }
 
-.box {
-  border: 1px solid #f3f3f3;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .box input {
   margin-bottom: 1em;
 }

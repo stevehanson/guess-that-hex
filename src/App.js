@@ -10,6 +10,7 @@ class App extends Component {
     started: false,
     creator: false,
     revealed: false,
+    allSubmitted: false,
     players: [],
     gameId: null
   }
@@ -53,7 +54,7 @@ class App extends Component {
   }
 
   render() {
-    const { gameId, creator, hex, revealed, started, players } = this.state
+    const { gameId, creator, guess, hex, revealed, started, players } = this.state
 
     return (
       <div>
@@ -63,6 +64,7 @@ class App extends Component {
               id={gameId}
               creator={creator}
               hex={hex}
+              guess={guess}
               started={started}
               revealed={revealed}
               players={players}
