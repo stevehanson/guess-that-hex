@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import globalStyle from './globalStyle'
+import copy from 'clipboard-copy'
 import Radium from 'radium'
 import Button from './shared/button'
 
@@ -22,9 +23,17 @@ class WaitingForPlayers extends Component {
     clearInterval(this.interval)
   }
 
+  copyText = (text) => {
+    copy(text)
+    this.setState({ copied: true })
+    setTimeout(() => {
+      this.setState({ copied: false })
+    }, 2000)
+  }
+
   render() {
     const { gameId, players, creator, onStart } = this.props
-    const { loadingDots } = this.state
+    const { loadingDots, copied } = this.state
     const joinUrl = `${window.location.protocol}//${window.location.host}/${encodeURIComponent(gameId)}`
 
     return (
@@ -36,6 +45,8 @@ class WaitingForPlayers extends Component {
             <div style={styles.gameId}>
               <pre>{joinUrl}</pre>
             </div>
+            <button onClick={e => this.copyText(joinUrl)}>Copy</button>
+            {copied && <span>copied!</span>}
           </div>
         )}
         <ul style={styles.activity}>
