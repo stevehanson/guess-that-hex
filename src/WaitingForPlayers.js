@@ -24,15 +24,16 @@ class WaitingForPlayers extends Component {
   render() {
     const { gameId, players, creator, onStart } = this.props
     const { loadingDots } = this.state
+    const joinUrl = `${window.location.protocol}//${window.location.host}/${encodeURIComponent(gameId)}`
 
     return (
       <div style={styles.container}>
         <h2>Waiting for players...</h2>
         {creator && (
           <div>
-            <div style={styles.gamedIdText}>Other players can join by entering this game ID:</div>
+            <div style={styles.gamedIdText}>Other players can join by navigating here:</div>
             <div style={styles.gameId}>
-              <pre>{gameId}</pre>
+              <pre>{joinUrl}</pre>
             </div>
           </div>
         )}

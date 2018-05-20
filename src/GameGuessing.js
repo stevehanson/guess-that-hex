@@ -53,7 +53,7 @@ class GameGuessing extends Component {
             {!!donePlayers.length && (
               <div style={styles.activity}>
                 <i style={[styles.icon, styles.success]}>🌞</i>
-                {donePlayers.join(', ')} have submitted their guesses!
+                {donePlayers.join(', ')} {donePlayers.length === 1 ? 'has' : 'have'} submitted their guess{donePlayers.length !== 1 && 'es'}!
               </div>
             )}
             {!!waitingOn.length && (

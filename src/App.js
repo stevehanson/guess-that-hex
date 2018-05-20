@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Game from './Game';
 import Landing from './Landing';
 import Firebase from './firebase/index';
+import tinycolor from 'tinycolor2'
 import './App.css';
 
 class App extends Component {
@@ -10,13 +11,13 @@ class App extends Component {
     started: false,
     creator: false,
     revealed: false,
-    allSubmitted: false,
     players: [],
-    gameId: null
+    gameId: null,
+    guess: null,
   }
 
   createGame = (name) => {
-    const hex = '#'+Math.floor(Math.random()*16777215).toString(16)
+    const hex = tinycolor.random().toHexString()
     const gameId = this.firebase.createGame(hex)
     this.setState({ hex, gameId, creator: true })
     this.subscribeToAndJoinGame(gameId, name)
@@ -48,6 +49,12 @@ class App extends Component {
     this.setState({ started: true })
   }
 
+  resetGame = () => {
+    const hex = tinycolor.random().toHexString()
+    this.firebase.resetGame(hex, this.state.players)
+    this.setState({ guess: null, revealed: false, hex })
+  }
+
   revealAnswer = () => {
     this.firebase.updateGame({ revealed: true })
     this.setState({ revealed: true })
@@ -69,11 +76,16 @@ class App extends Component {
               revealed={revealed}
               players={players}
               onStart={this.startGame}
+              onReset={this.resetGame}
               onSubmit={this.submitGuess}
               onReveal={this.revealAnswer}
             />
           ) : (
-            <Landing onJoin={this.joinGame} onCreate={this.createGame} />
+            <Landing
+              gameId={gameId}
+              onJoin={this.joinGame}
+              onCreate={this.createGame}
+            />
           )}
         </div>
       </div>

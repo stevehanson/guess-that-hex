@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import Radium from 'radium'
 import GameGuessing from './GameGuessing'
 import WaitingForPlayers from './WaitingForPlayers'
 import ResultBox from './ResultBox'
-import logo from './logo.png';
+import globalStyle from './globalStyle'
+import logo from './logo.png'
 
 class Game extends Component {
   constructor() {
@@ -51,13 +53,18 @@ class Game extends Component {
   }
 
   render() {
-    const { id, creator, started, players, onStart } = this.props
+    const { id, creator, started, players, revealed, onReset, onStart } = this.props
 
     return (
       <div>
         <div style={styles.nav}>
           <div style={styles.navContainer}>
             <img src={logo} style={styles.logo} alt="guess that hex" />
+            <div style={styles.rightNav}>
+              {revealed && (
+                <a key="play-again" role="button" style={styles.rightNavLink} onClick={onReset}>Play again</a>
+              )}
+            </div>
           </div>
         </div>
 
@@ -91,6 +98,16 @@ const styles = {
     margin: '0.75em 0 -1.4em',
     zIndex: '1'
   },
+  rightNavLink: {
+    marginTop: '1em',
+    display: 'inline-block',
+    color: '#555',
+    cursor: 'pointer',
+    ':hover': {
+      color: globalStyle.colors.primary
+      transition: 'all 200ms'
+    }
+  },
   boxes: {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
@@ -99,4 +116,4 @@ const styles = {
   }
 }
 
-export default Game;
+export default Radium(Game);

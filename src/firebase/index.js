@@ -50,6 +50,15 @@ class Firebase {
   updateGame(values) {
     this.gameRef.update(values)
   }
+
+  resetGame(hex, players) {
+    players.forEach(player => {
+      console.log('updating player ', player.name)
+      firebase.database().ref(`games/${this.gameId}/players/${player.id}`).update({ guess: null })
+
+    })
+    this.updateGame({ started: true, revealed: false, hex })
+  }
 }
 
 export default Firebase

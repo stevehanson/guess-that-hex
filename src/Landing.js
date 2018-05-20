@@ -5,7 +5,7 @@ import logo from './logo.png';
 import globalStyle from './globalStyle'
 
 class Landing extends Component {
-  constructor() {
+  constructor(props) {
     super()
     this.state = {
       option: '',
@@ -13,6 +13,16 @@ class Landing extends Component {
       name: localStorage.getItem('gth:name') || ''
     }
     
+  }
+
+  componentDidMount() {
+    let path = window.location.pathname.substr('1')
+    console.log(path)
+    if(path.length) {
+      path = decodeURIComponent(path)
+      console.log(path)
+      this.setState({ gameId: path, option: 'join' })
+    }
   }
 
   gameIdChanged = (e) => {
@@ -65,7 +75,7 @@ class Landing extends Component {
           </div>
         )}
 
-        <Button type="submit" style={{ marginTop: '1em' }}>{buttonText}</Button>
+        <Button type="submit" style={styles.submit}>{buttonText}</Button>
         <a
           role="button"
           style={styles.back}
@@ -87,7 +97,7 @@ class Landing extends Component {
           <div style={styles.header}>
             <img src={logo} style={styles.logo} alt="guess that hex" />
           </div>
-          <div style={{...styles.content, ...styles.pad}}>
+          <div style={styles.content}>
             <h2 style={styles.heading}>Welcome to Guess that Hex!</h2>
             {option ? this.renderForm() : this.renderOptions()}
           </div>
@@ -108,7 +118,7 @@ const styles = {
     backgroundColor: '#fafafa',
     borderRadius: '4px',
     overflow: 'hidden',
-    width: "480px",
+    width: "540px",
     maxWidth: "98%",
     margin: '4em auto'
   },
@@ -119,13 +129,13 @@ const styles = {
     padding: '1.7em 0 0'
   },
   heading: {
-    textAlign: 'center'
+    marginBottom: '2em'
   },
   form: {
     marginTop: '2em'
   },
-  pad: {
-    padding: '2em 3em'
+  content: {
+    padding: '2em 4em'
   },
   logo: {
     width: '300px',
@@ -136,7 +146,7 @@ const styles = {
     marginBottom: '2em'
   },
   formGroup: {
-    marginBottom: '1em'
+    marginBottom: '1.5em'
   },
   label: {
     display: 'block',
@@ -154,6 +164,9 @@ const styles = {
       color: globalStyle.colors.primary,
       transition: 'all 200ms'
     }
+  },
+  submit: {
+    marginTop: '1.5em'
   },
   actions: {
     display: 'flex',
