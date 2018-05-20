@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Radium from 'radium'
 
 const Button = ({ onClick, style, children, ...props }) => {

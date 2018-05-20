@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Radium from 'radium'
 import Button from './shared/button'
 import logo from './logo.png';
+import globalStyle from './globalStyle'
 
 class Landing extends Component {
   constructor() {
@@ -54,23 +55,31 @@ class Landing extends Component {
     return (
       <form style={styles.form} onSubmit={submit}>
         <div style={styles.formGroup}>
-          <label style={styles.label} htmlFor="name">Your Name</label>
-          <input className="input" style={styles.input} value={name} onChange={this.nameChanged} />
+          <label style={[globalStyle.label, styles.label]} htmlFor="name">Your Name</label>
+          <input style={[globalStyle.input, styles.input]} value={name} onChange={this.nameChanged} />
         </div>
         {option === 'join' && (
           <div style={styles.formGroup}>
-            <label style={styles.label}  htmlFor="gameid">Game ID</label>
-            <input style={styles.input} className="input" value={gameId} onChange={this.gameIdChanged} />
+            <label style={[globalStyle.label, styles.label]}  htmlFor="gameid">Game ID</label>
+            <input style={[globalStyle.input, styles.input]} value={gameId} onChange={this.gameIdChanged} />
           </div>
         )}
 
-        <Button type="submit">{buttonText}</Button>
+        <Button type="submit" style={{ marginTop: '1em' }}>{buttonText}</Button>
+        <a
+          role="button"
+          style={styles.back}
+          onClick={() => this.setState({ option: null })}
+          key="back"
+        >
+          &laquo; Back
+        </a>
       </form>
     )
   }
 
   render() {
-    const { option, gameId, name } = this.state
+    const { option } = this.state
 
     return (
       <div style={styles.page}>
@@ -112,6 +121,9 @@ const styles = {
   heading: {
     textAlign: 'center'
   },
+  form: {
+    marginTop: '2em'
+  },
   pad: {
     padding: '2em 3em'
   },
@@ -133,6 +145,15 @@ const styles = {
   },
   input: {
     width: '100%',
+  },
+  back: {
+    color: "#888",
+    marginLeft: '1em',
+    textDecoration: 'none',
+    ':hover': {
+      color: globalStyle.colors.primary,
+      transition: 'all 200ms'
+    }
   },
   actions: {
     display: 'flex',

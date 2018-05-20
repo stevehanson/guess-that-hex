@@ -18,6 +18,11 @@ class Firebase {
     this.gameRef = firebase.database().ref(`games/${gameId}`)
     this.gameRef.on('value', snapshot => {
       const game = snapshot.val()
+      const players = game.players
+      game.players = Object.entries(players || {}).map(([id, player]) => (
+        { ...player, id }
+      ))
+      console.log(game.players)
       console.log(game)
       onUpdate(game)
     });
@@ -26,7 +31,13 @@ class Firebase {
   }
 
   addPlayerToGame(name) {
-    firebase.database().ref(`games/${this.gameId}/players`).push({ name })
+    this.playerRef = firebase.database().ref(`games/${this.gameId}/players`).push({ name })
+    this.playerId = this.playerRef.key
+    console.log('player id: ' + this.playerId)
+  }
+
+  submitGuess(guess) {
+    this.playerRef.set({ guess })
   }
 
   updateGame(values) {

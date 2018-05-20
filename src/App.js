@@ -24,6 +24,7 @@ class App extends Component {
   subscribeToAndJoinGame = (gameId, name) => {
     this.firebase.subscribeToAndJoinGame(gameId, name, (gameVals) => {
       this.setState(gameVals)
+      
     })
   }
 
@@ -36,6 +37,11 @@ class App extends Component {
     this.subscribeToAndJoinGame(gameId, name)
   }
 
+  submitGuess = (guess) => {
+    this.firebase.submitGuess(guess)
+    this.setState({ guess })
+  }
+
   startGame = () => {
     this.firebase.updateGame({ started: true })
     this.setState({ started: true })
@@ -44,10 +50,6 @@ class App extends Component {
   revealAnswer = () => {
     this.firebase.updateGame({ revealed: true })
     this.setState({ revealed: true })
-  }
-
-  playerHexChanged = (player, hex) => {
-    console.log('hex changed', player, hex)
   }
 
   render() {
@@ -65,8 +67,8 @@ class App extends Component {
               revealed={revealed}
               players={players}
               onStart={this.startGame}
+              onSubmit={this.submitGuess}
               onReveal={this.revealAnswer}
-              onPlayerHexChanged={this.playerHexChanged}
             />
           ) : (
             <Landing onJoin={this.joinGame} onCreate={this.createGame} />
