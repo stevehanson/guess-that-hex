@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StyleRoot } from 'radium';
 import Game from './Game';
 import Landing from './Landing';
 import Firebase from './firebase/index';
@@ -64,7 +65,7 @@ class App extends Component {
     const { gameId, creator, guess, hex, revealed, started, players } = this.state
 
     return (
-      <div>
+      <StyleRoot>
         <div style={styles.content}>
           {gameId ? (
             <Game
@@ -88,7 +89,7 @@ class App extends Component {
             />
           )}
         </div>
-      </div>
+      </StyleRoot>
     )
   }
 }

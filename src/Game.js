@@ -104,7 +104,7 @@ const styles = {
     color: '#555',
     cursor: 'pointer',
     ':hover': {
-      color: globalStyle.colors.primary
+      color: globalStyle.colors.primary,
       transition: 'all 200ms'
     }
   },
@@ -112,7 +112,7 @@ const styles = {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateRows: 'auto',
-    height: '100vh'
+    height: 'calc(100vh - 51px)'
   }
 }
 

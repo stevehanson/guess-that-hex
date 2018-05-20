@@ -58,7 +58,8 @@ class Landing extends Component {
     const { onCreate, onJoin } = this.props
     const { option, gameId, name } = this.state
     const buttonText = (option === 'new') ? 'Create Game' : 'Join Game'
-    const submit = () => {
+    const submit = (e) => {
+      e.preventDefault()
       option === 'new' ? onCreate(name) : onJoin(gameId, name)
     }
 
@@ -112,15 +113,21 @@ const styles = {
     backgroundColor: 'tomato',
     minHeight: '100vh',
     width: '100%',
-    padding: '4em 0'
+    padding: '2em 0',
+    '@media (min-width: 500px)': {
+      padding: '4em 0',
+    }
   },
   container: {
     backgroundColor: '#fafafa',
     borderRadius: '4px',
     overflow: 'hidden',
     width: "540px",
-    maxWidth: "98%",
-    margin: '4em auto'
+    maxWidth: "90%",
+    margin: '2em auto',
+    '@media (min-width: 500px)': {
+      margin: '4em auto',
+    }
   },
   header: {
     display: 'flex',
@@ -129,16 +136,21 @@ const styles = {
     padding: '1.7em 0 0'
   },
   heading: {
-    marginBottom: '2em'
+    marginBottom: '2em',
+    textAlign: 'center'
   },
   form: {
     marginTop: '2em'
   },
   content: {
-    padding: '2em 4em'
+    padding: '2em 1em',
+    '@media (min-width: 500px)': {
+      padding: '2em 4em'
+    }
   },
   logo: {
     width: '300px',
+    maxWidth: '90%',
     height: '92px',
     marginBottom: '-1.1em'
   },

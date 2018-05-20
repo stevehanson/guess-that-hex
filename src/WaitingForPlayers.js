@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import globalStyle from './globalStyle'
+import Radium from 'radium'
 import Button from './shared/button'
 
 class WaitingForPlayers extends Component {
@@ -56,10 +57,13 @@ const styles = {
   container: {
     width: '500px',
     maxWidth: '98%',
-    margin: '5em auto 0',
+    margin: '0 auto',
     backgroundColor: globalStyle.colors.almostWhite,
     borderRadius: globalStyle.borderRadius,
     padding: globalStyle.padding.default,
+    '@media (min-width: 500px)': {
+      marginTop: '5em'
+    }
   },
   activity: {
     margin: '2em 0',
@@ -85,4 +89,5 @@ const styles = {
   gameId: {
   }
 }
-export default WaitingForPlayers
+
+export default Radium(WaitingForPlayers)

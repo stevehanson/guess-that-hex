@@ -74,10 +74,13 @@ const styles = {
   container: {
     width: '500px',
     maxWidth: '98%',
-    margin: '5em auto 0',
+    margin: '0 auto',
     backgroundColor: globalStyle.colors.almostWhite,
     borderRadius: globalStyle.borderRadius,
     padding: globalStyle.padding.default,
+    '@media (min-width: 500px)': {
+      marginTop: '5em'
+    }
   },
   hex: {
     width: '300px',
