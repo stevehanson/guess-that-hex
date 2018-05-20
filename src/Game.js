@@ -112,7 +112,7 @@ const styles = {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateRows: 'auto',
-    height: 'calc(100vh - 51px)'
+    height: 'calc(100vh - 52px)'
   }
 }
 

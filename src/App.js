@@ -26,8 +26,11 @@ class App extends Component {
 
   subscribeToAndJoinGame = (gameId, name) => {
     this.firebase.subscribeToAndJoinGame(gameId, name, (gameVals) => {
+      // game was reset, clear guess
+      if(this.state.revealed && !gameVals.revealed) {
+        gameVals.guess = null
+      }
       this.setState(gameVals)
-      
     })
   }
 
