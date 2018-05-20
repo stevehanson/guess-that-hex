@@ -2,18 +2,26 @@ import React, { Component } from 'react'
 import globalStyle from './globalStyle'
 import Button from './shared/button'
 import Radium from 'radium'
+import tinycolor from 'tinycolor2'
 
 class GameGuessing extends Component {
   state = { guess: '', loadingDots: '...' }
 
   submit = (e) => {
+    const { guess } = this.state
     e.preventDefault()
-    this.props.onSubmit(this.state.guess)
+    if(!tinycolor(guess).isValid()) {
+      alert('The color you entered is not valid. Please make sure it\'s a valid 3 or 6 character hex code or a CSS named color.')
+      return
+    }
+
+    this.props.onSubmit(guess)
   }
 
   render() {
-    const { hex, players, onSubmit, onReveal, creator } = this.props
-    const { loadingDots, guess } = this.state
+    const { hex, players, onReveal, creator } = this.props
+    const { guess } = this.state
+    const savedGuess = this.props.guess
     const donePlayers = players.filter(p => p.guess).map(p => p.name)
     const waitingOn = players.filter(p => !p.guess).map(p => p.name)
 
@@ -34,8 +42,10 @@ class GameGuessing extends Component {
               placeholder="eg. #ff00ab"
             />
           </div>
-          <Button>Submit</Button>
-          {creator && (
+          {!savedGuess && (
+            <Button style={{ marginRight: '0.5em' }}>Submit</Button>
+          )}
+          {savedGuess && creator && (
             <Button type="button" onClick={onReveal}>Reveal</Button>
           )}
 
@@ -78,6 +88,9 @@ const styles = {
   },
   form: {
     marginTop: '2em'
+  },
+  formGroup: {
+    marginBottom: '2em'
   },
   activityContainer: {
     margin: '2em 0'

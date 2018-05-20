@@ -26,7 +26,6 @@ test('renders a game as the creator', () => {
   jest.mock('./firebase/index')
   const component = mount(<App />)
   component.instance().createGame("Bill")
-  console.log(component.html())
   expect(component.state('creator')).toBeTruthy()
   expect(component.html()).toContain('Other players can join by entering this game ID')
 })
@@ -35,14 +34,12 @@ test('can join a game', () => {
   jest.mock('./firebase/index')
   const component = mount(<App />)
   component.instance().joinGame("abc", "Bill")
-  console.log(component.html())
   expect(component.state('creator')).toBeFalsy()
-  expect(component.html()).toContain("Waiting for game to start")
+  expect(component.html()).toContain("Waiting for players")
 })
 
 test('can create a new game', () =>  {
   const component = mount(<App />)
   component.find('button#new').simulate('click')
-  console.log(component.html())
   expect(toJson(component)).toMatchSnapshot()
 })

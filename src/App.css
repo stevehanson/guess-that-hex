@@ -6,17 +6,6 @@ body {
   margin: 0;
 }
 
-.boxes {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  height: 100vh;
-}
-
-.box input {
-  margin-bottom: 1em;
-}
-
 .box input, .input {
   font-size: 1.1em;
   opacity: 0.8;

@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "firebase": "^5.0.3",
+    "lodash": "^4.17.10",
     "radium": "^0.24.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "tinycolor2": "^1.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

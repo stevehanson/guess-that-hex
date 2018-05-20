@@ -11,14 +11,18 @@ class Game extends Component {
   }
 
   renderGameContent() {
-    const { started, revealed, hex, players, onSubmit } = this.props
+    const { creator, revealed, hex, guess, players, onSubmit,
+      onReveal } = this.props
 
     if(revealed) {
       return this.renderReveal()
     } else {
       return (
         <GameGuessing
+          creator={creator}
+          guess={guess}
           hex={hex}
+          onReveal={onReveal}
           onSubmit={onSubmit}
           players={players}
         />
@@ -47,16 +51,13 @@ class Game extends Component {
   }
 
   render() {
-    const { id, creator, started, players, onStart, onReveal } = this.props
+    const { id, creator, started, players, onStart } = this.props
 
     return (
       <div>
         <div style={styles.nav}>
           <div style={styles.navContainer}>
             <img src={logo} style={styles.logo} alt="guess that hex" />
-            <div style={styles.right}>
-              <a role="button" onClick={onReveal}>Reveal</a>
-            </div>
           </div>
         </div>
 
