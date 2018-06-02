@@ -12,7 +12,7 @@ const ResultBox = ({ player }) => {
       <div style={styles.boxGuess}>{player.guess}</div>
       <div style={styles.boxName}>{player.name}</div>
       {player.winner && (
-        <h2 style={styles.winner}>🎉 WINNER! 🎉</h2>
+        <h2 style={styles.winner}>🎉 Winner! 🎉</h2>
       )}
     </div>
   )
@@ -26,21 +26,36 @@ const getStyles = (guess) => (
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
+      position: 'relative'
     },
     boxGuess: {
-      fontSize: '2em',
+      fontSize: '1.5em',
       textTransform: 'uppercase',
       fontWeight: '800',
       color: tinycolor.mostReadable(guess, ['#444', '#fff']).toHexString(),
-      marginBottom: '0.5em'
+      marginBottom: '0.5em',
+      '@media (min-width: 500px)': {
+        fontSize: '2em'
+      }
     },
     boxName: {
-      fontSize: '1.5em',
+      fontSize: '1em',
       fontWeight: '800',
       color: tinycolor.mostReadable(guess, ['#444', '#fff']).toHexString(),
+      '@media (min-width: 500px)': {
+        fontSize: '1.5em'
+      }
     },
     winner: {
       color: tinycolor.mostReadable(guess, ['#444', '#fff']).toHexString(),
+      position: 'absolute',
+      top: 0,
+      left: '1em',
+      fontSize: '1em',
+      fontWeight: '400',
+      '@media (min-width: 500px)': {
+        fontSize: '1.2em'
+      }
     }
   }
 )

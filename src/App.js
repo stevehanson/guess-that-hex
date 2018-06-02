@@ -4,7 +4,6 @@ import Game from './Game';
 import Landing from './Landing';
 import Firebase from './firebase/index';
 import tinycolor from 'tinycolor2'
-import './App.css';
 
 class App extends Component {
   firebase = new Firebase()

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import tinycolor from 'tinycolor2'
 import Radium from 'radium'
 import GameGuessing from './GameGuessing'
 import WaitingForPlayers from './WaitingForPlayers'
@@ -16,7 +17,7 @@ class Game extends Component {
     const { creator, revealed, hex, guess, players, onSubmit,
       onReveal } = this.props
 
-    if(revealed) {
+    if(guess && revealed) {
       return this.renderReveal()
     } else {
       return (
@@ -34,6 +35,11 @@ class Game extends Component {
 
   renderReveal() {
     const { hex, players } = this.props
+    const colorStyle = {
+      ...styles.color,
+      color: tinycolor.mostReadable(hex, ['#444', '#fff']).toHexString(),
+      backgroundColor: hex
+    }
     
     return (
       <div>
@@ -45,8 +51,8 @@ class Game extends Component {
             />
           ))}
         </div>
-        <div className="color-container">
-          <div className="color" style={{ backgroundColor: hex || '#fff' }}></div>
+        <div style={styles.colorContainer}>
+          <div style={colorStyle}>{hex}</div>
         </div>
       </div>
     )
@@ -113,6 +119,34 @@ const styles = {
     gridTemplateColumns: '1fr 1fr',
     gridTemplateRows: 'auto',
     height: 'calc(100vh - 52px)'
+  },
+  colorContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    pointerEvents: 'none'
+  },
+  color: {
+    width: '20%',
+    height: '30vh',
+    background: 'red',
+    borderRadius: '4px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: '600',
+    fontSize: '0.8em',
+    '@media (min-width: 500px)': {
+      fontSize: '1em'
+    },
+    '@media (min-width: 700px)': {
+      fontSize: '1.3em'
+    }
   }
 }
 
