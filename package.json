@@ -2,6 +2,7 @@
   "name": "guess-hex",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://hex.shanson.co",
   "dependencies": {
     "clipboard-copy": "^2.0.0",
     "dotenv": "^5.0.1",
@@ -19,11 +20,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && node sync.js"
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "enzyme-to-json": "^3.3.4"
+    "enzyme-to-json": "^3.3.4",
+    "gh-pages": "^1.2.0"
   }
 }
