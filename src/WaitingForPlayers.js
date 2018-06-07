@@ -34,7 +34,7 @@ class WaitingForPlayers extends Component {
   render() {
     const { gameId, players, creator, onStart } = this.props
     const { loadingDots, copied } = this.state
-    const joinUrl = `${window.location.protocol}//${window.location.host}/${encodeURIComponent(gameId)}`
+    const joinUrl = `${window.location.protocol}//${window.location.host}/join/${encodeURIComponent(gameId)}`
 
     return (
       <div style={styles.container}>

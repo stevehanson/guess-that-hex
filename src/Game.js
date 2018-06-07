@@ -1,4 +1,13 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import {
+  startGame,
+  resetGame,
+  submitGuess,
+  revealAnswer,
+} from './reducers/game'
 import tinycolor from 'tinycolor2'
 import Radium from 'radium'
 import GameGuessing from './GameGuessing'
@@ -8,14 +17,19 @@ import globalStyle from './globalStyle'
 import logo from './logo.png'
 
 class Game extends Component {
-  constructor() {
-    super()
-    this.state = {}
+  state = {}
+
+  componentDidMount() {
+    // redirect if someone navigates straight here
+    // if(!this.props.players.length) {
+    //   this.props.history.push(`/join/${this.props.match.params.id}`)
+    // }
   }
 
+
   renderGameContent() {
-    const { creator, revealed, hex, guess, players, onSubmit,
-      onReveal } = this.props
+    const { creator, revealed, hex, guess, players } = this.props
+    const { submitGuess, revealAnswer } = this.props
 
     if(guess && revealed) {
       return this.renderReveal()
@@ -25,8 +39,8 @@ class Game extends Component {
           creator={creator}
           guess={guess}
           hex={hex}
-          onReveal={onReveal}
-          onSubmit={onSubmit}
+          onReveal={revealAnswer}
+          onSubmit={submitGuess}
           players={players}
         />
       )
@@ -59,16 +73,19 @@ class Game extends Component {
   }
 
   render() {
-    const { id, creator, started, players, revealed, onReset, onStart } = this.props
+    const { id, creator, started, players, revealed } = this.props
+    const { startGame, resetGame } = this.props
 
     return (
       <div>
         <div style={styles.nav}>
           <div style={styles.navContainer}>
-            <img src={logo} style={styles.logo} alt="guess that hex" />
+            <Link to="/">
+              <img src={logo} style={styles.logo} alt="guess that hex" />
+            </Link>
             <div style={styles.rightNav}>
               {revealed && (
-                <a key="play-again" role="button" style={styles.rightNavLink} onClick={onReset}>Play again</a>
+                <a key="play-again" role="button" style={styles.rightNavLink} onClick={resetGame}>Play again</a>
               )}
             </div>
           </div>
@@ -79,7 +96,7 @@ class Game extends Component {
             gameId={id}
             players={players}
             creator={creator}
-            onStart={onStart}
+            onStart={startGame}
           />
         )}
       </div>
@@ -134,7 +151,6 @@ const styles = {
   color: {
     width: '20%',
     height: '30vh',
-    background: 'red',
     borderRadius: '4px',
     display: 'flex',
     justifyContent: 'center',
@@ -150,4 +166,19 @@ const styles = {
   }
 }
 
-export default Radium(Game);
+const mapStateToProps = state => {
+  console.log(state)
+  return state.game
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  startGame,
+  resetGame,
+  submitGuess,
+  revealAnswer,
+}, dispatch)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Radium(Game))

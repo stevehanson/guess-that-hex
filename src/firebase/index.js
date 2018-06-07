@@ -1,6 +1,6 @@
 import firebase from './setup';
 import { compact } from 'lodash'
-import { closestColor } from '../colorCalculations'
+import { closestColor } from '../util/colorCalculations'
 
 class Firebase {
   createGame(hex) {
