@@ -10,6 +10,9 @@ The game is built using React and Firebase for real-time communication. It's hos
 
 Run `yarn install`. Then start the app with `yarn start`.
 
+This project also uses [Storybook](https://github.com/storybooks/storybook),
+which can be started with `yarn storybook`.
+
 ## Deployment
 
 First, make sure you have a `.env` file with keys: `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, then run `yarn deploy`. This builds the project for production and uploads the build to S3.
