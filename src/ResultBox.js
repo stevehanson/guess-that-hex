@@ -8,7 +8,7 @@ const ResultBox = ({ player }) => {
   const boxStyle = [styles.box, { backgroundColor: hex }]
 
   return (
-    <div style={boxStyle}>
+    <div className="ResultBox" style={boxStyle}>
       <div style={styles.boxGuess}>{player.guess}</div>
       <div style={styles.boxName}>{player.name}</div>
       {player.winner && (
@@ -23,6 +23,8 @@ const getStyles = (guess) => (
     box: {
       border: '1px solid #f3f3f3',
       display: 'flex',
+      flex: 1,
+      minHeight: '110px',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',

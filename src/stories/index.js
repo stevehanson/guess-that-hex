@@ -1,20 +1,22 @@
 import React from 'react';
 
 import { storiesOf, addDecorator } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
 import { StyleRoot } from 'radium';
-
-import { Button, Welcome } from '@storybook/react/demo';
 
 import tinycolor from 'tinycolor2'
 
 import WaitingForPlayers from '../WaitingForPlayers'
 import GameGuessing from '../GameGuessing'
+import GameResults from '../components/GameResults'
 
 const noop = () => {}
-const hex = tinycolor.random().toHexString()
-const players = [{ name: 'Stephen' }, { name: 'Dawn', guess: 'yellow', }, { name: 'Frasier', guess: '#ff0044' }]
+const hex = () => tinycolor.random().toHexString()
+const players = [
+  { name: 'Stephen', guess: hex() },
+  { name: 'Dawn', guess: 'yellow', },
+  { name: 'Frasier', guess: hex() },
+  { name: 'A Really Long Name' }
+]
 
 const RadiumDecorator = (storyFn) => (
   <StyleRoot>
@@ -23,6 +25,17 @@ const RadiumDecorator = (storyFn) => (
 );
 
 addDecorator(RadiumDecorator)
+
+storiesOf('GameResults', module)
+  .add('with results', () => (
+    <GameResults players={players} hex={hex()} />
+  ))
+  .add('with medium number of players', () => (
+    <GameResults players={players.concat(players)} hex={hex()} />
+  ))
+  .add('with lots of players', () => (
+    <GameResults players={players.concat(players).concat(players)} hex={hex()} />
+  ));
 
 storiesOf('WaitingForPlayers', module)
   .add('with players as creator', () => (
@@ -36,16 +49,4 @@ storiesOf('WaitingForPlayers', module)
 storiesOf('GameGuessing', module)
   .add('game', () => (
     <GameGuessing hex={hex} players={players} onReveal={noop} creator={true} />
-  ));
-
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
-
-storiesOf('Button', module)
-  .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>
-      <span role="img" aria-label="so cool">
-        😀 😎 👍 💯
-      </span>
-    </Button>
   ));
