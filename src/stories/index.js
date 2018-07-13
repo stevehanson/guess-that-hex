@@ -3,21 +3,14 @@ import React from 'react';
 import { storiesOf, addDecorator } from '@storybook/react';
 import { StyleRoot } from 'radium';
 
-import tinycolor from 'tinycolor2'
 
 import WaitingForPlayers from '../WaitingForPlayers'
 import GameGuessing from '../GameGuessing'
 import GameResults from '../components/GameResults'
+import { hex, getPlayers } from './utils'
+import '../index.css'
 
 const noop = () => {}
-const hex = () => tinycolor.random().toHexString()
-const players = [
-  { name: 'Stephen', guess: hex() },
-  { name: 'Dawn', guess: 'yellow', },
-  { name: 'Frasier', guess: hex() },
-  { name: 'A Really Long Name' }
-]
-
 const RadiumDecorator = (storyFn) => (
   <StyleRoot>
     { storyFn() }
@@ -28,25 +21,36 @@ addDecorator(RadiumDecorator)
 
 storiesOf('GameResults', module)
   .add('with results', () => (
-    <GameResults players={players} hex={hex()} />
+    <GameResults players={getPlayers(3)} hex={hex()} />
   ))
   .add('with medium number of players', () => (
-    <GameResults players={players.concat(players)} hex={hex()} />
+    <GameResults players={getPlayers(6)} hex={hex()} />
   ))
   .add('with lots of players', () => (
-    <GameResults players={players.concat(players).concat(players)} hex={hex()} />
+    <GameResults players={getPlayers(15)} hex={hex()} />
   ));
 
+
+const finishFirst = (players) => {
+  delete players[0].guess
+  return players
+}
 storiesOf('WaitingForPlayers', module)
   .add('with players as creator', () => (
-    <WaitingForPlayers players={players} creator={true} onStart={noop} />
+    <WaitingForPlayers players={getPlayers(4)} creator={true} onStart={noop} />
   ))
   .add('with players', () => (
-    <WaitingForPlayers players={players} creator={false} onStart={noop} />
+    <WaitingForPlayers players={getPlayers(4)} creator={false} onStart={noop} />
+  ))
+  .add('with lots of players', () => (
+    <WaitingForPlayers players={getPlayers(25)} creator={false} onStart={noop} />
   ))
 
 
 storiesOf('GameGuessing', module)
   .add('game', () => (
-    <GameGuessing hex={hex} players={players} onReveal={noop} creator={true} />
+    <GameGuessing hex={hex()} players={finishFirst(getPlayers(4))} onReveal={noop} creator={true} />
+  ))
+  .add('with lots of players', () => (
+    <GameGuessing hex={hex()} players={finishFirst(getPlayers(25))} onReveal={noop} creator={true} />
   ));
