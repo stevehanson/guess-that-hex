@@ -3,6 +3,7 @@ const globalStyle = {
     default: '2em'
   },
   borderRadius: '4px',
+  navHeight: '55px',
   colors: {
     almostWhite: '#fafafa',
     primary: 'tomato'

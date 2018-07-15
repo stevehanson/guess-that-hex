@@ -1,39 +1,30 @@
 import React, { Component } from 'react'
-import globalStyle from './globalStyle'
+import PropTypes from 'prop-types'
+import globalStyle from '../globalStyle'
 import copy from 'clipboard-copy'
 import Radium from 'radium'
-import Button from './shared/button'
+import Button from '../shared/button'
+import WaitingIndicator from './WaitingIndicator'
 
 class WaitingForPlayers extends Component {
-  state = { loadingDots: '' }
-
-  componentDidMount() {
-    this.interval = setInterval(() => {
-      let loadingDots = this.state.loadingDots
-      if(loadingDots.length === 5) {
-        loadingDots = ''
-      } else {
-        loadingDots += '.'
-      }
-      this.setState({ loadingDots })
-    }, 600)
+  static propTypes = {
+    gameId: PropTypes.string.isRequired,
+    players: PropTypes.array.isRequired,
+    creator: PropTypes.bool.isRequired,
+    onStart: PropTypes.func.isRequired
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval)
-  }
+  state = {}
 
   copyText = (text) => {
     copy(text)
     this.setState({ copied: true })
-    setTimeout(() => {
-      this.setState({ copied: false })
-    }, 2000)
+    setTimeout(() => { this.setState({ copied: false }) }, 2000)
   }
 
   render() {
     const { gameId, players, creator, onStart } = this.props
-    const { loadingDots, copied } = this.state
+    const { copied } = this.state
     const joinUrl = `${window.location.protocol}//${window.location.host}/join/${encodeURIComponent(gameId)}`
 
     return (
@@ -51,9 +42,11 @@ class WaitingForPlayers extends Component {
         )}
         <ul style={styles.activity}>
           {players.map(player => (
-            <li key={player.name}>{player.name} joined the game!</li>
+            <li key={player.id}>{player.name} joined the game!</li>
           ))}
-          <li style={styles.loadingDots}>{loadingDots}</li>
+          <li style={styles.loadingDots}>
+            <WaitingIndicator />
+          </li>
         </ul>
 
         {creator && (
@@ -82,13 +75,7 @@ const styles = {
     lineHeight: '1.7'
   },
   loadingDots: {
-    fontFamily: 'georgia, serif',
-    fontSize: '1.4em',
-    fontWeight: 900,
-    height: '35px',
-    color: globalStyle.colors.primary,
     listStyleType: 'none',
-    marginTop: '0.5em'
   },
   gameIdContainer: {
     marginTop: '2em',

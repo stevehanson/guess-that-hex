@@ -1,6 +1,7 @@
 import React from 'react'
 import tinycolor from 'tinycolor2'
 import ResultBox from '../ResultBox'
+import globalStyle from '../globalStyle'
 
 const GameResults = ({ players, hex }) => {
   const colorStyle = {
@@ -31,7 +32,7 @@ const GameResults = ({ players, hex }) => {
 const styles = {
   container: {
     display: 'flex',
-    height: '100vh',
+    height: `calc(100vh - ${globalStyle.navHeight})`,
     width: '100%',
     overflow: 'hidden'
   },
@@ -68,7 +69,7 @@ const styles = {
     // height: 'calc(100vh - 52px)'
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh'
+    minHeight: `calc(100vh - ${globalStyle.navHeight})`,
   },
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import GameGuessing from '../GameGuessing'
 import GameResults from './GameResults'
-import WaitingForPlayers from '../WaitingForPlayers'
+import WaitingForPlayers from './WaitingForPlayers'
 import globalStyle from '../globalStyle'
 import logo from '../logo.png'
 
@@ -10,8 +10,29 @@ class Game extends Component {
   state = {}
 
   renderGameContent() {
-    const { creator, revealed, hex, guess, players } = this.props
-    const { submitGuess, revealAnswer } = this.props
+    const {
+      id,
+      startGame,
+      creator,
+      started,
+      revealed,
+      hex,
+      guess,
+      players,
+      submitGuess,
+      revealAnswer 
+    } = this.props
+
+    if(!started) {
+      return (
+        <WaitingForPlayers
+          gameId={id}
+          players={players}
+          creator={creator}
+          onStart={startGame}
+        />
+      )
+    } 
 
     if(guess && revealed) {
       return (
@@ -32,35 +53,33 @@ class Game extends Component {
         />
       )
     }
+
+  }
+
+  renderNav() {
+    const { resetGame, revealed } = this.props
+
+    return (
+      <div style={styles.nav}>
+        <div style={styles.navContainer}>
+          <Link to="/">
+            <img src={logo} style={styles.logo} alt="guess that hex" />
+          </Link>
+          <div style={styles.rightNav}>
+            {revealed && (
+              <a key="play-again" role="button" style={styles.rightNavLink} onClick={resetGame}>Play again</a>
+            )}
+          </div>
+        </div>
+      </div>
+    )
   }
 
   render() {
-    const { id, creator, started, players, revealed } = this.props
-    const { startGame, resetGame } = this.props
-
     return (
       <div>
-        <div style={styles.nav}>
-          <div style={styles.navContainer}>
-            <Link to="/">
-              <img src={logo} style={styles.logo} alt="guess that hex" />
-            </Link>
-            <div style={styles.rightNav}>
-              {revealed && (
-                <a key="play-again" role="button" style={styles.rightNavLink} onClick={resetGame}>Play again</a>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {started ? this.renderGameContent() : (
-          <WaitingForPlayers
-            gameId={id}
-            players={players}
-            creator={creator}
-            onStart={startGame}
-          />
-        )}
+        {this.renderNav()}
+        {this.renderGameContent()}
       </div>
     )
   }
@@ -72,6 +91,7 @@ const styles = {
   },
   navContainer: {
     margin: '0 auto',
+    height: globalStyle.navHeight,
     width: '992px',
     maxWidth: '80%',
     display: 'flex',
