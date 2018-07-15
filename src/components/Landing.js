@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { createGame, joinGame } from './reducers/game'
+import PropTypes from 'prop-types'
 import Radium from 'radium'
-import Button from './shared/button'
-import logo from './logo.png';
-import globalStyle from './globalStyle'
+import Button from '../shared/button'
+import logo from '../logo.png';
+import globalStyle from '../globalStyle'
 
 class Landing extends Component {
+  static propTypes = {
+    createGame: PropTypes.func.isRequired,
+    joinGame: PropTypes.func.isRequired,
+  }
+
   constructor(props) {
     super()
     this.state = {
@@ -15,20 +18,11 @@ class Landing extends Component {
       gameId: '',
       name: localStorage.getItem('gth:name') || ''
     }
-    
   }
 
   componentDidMount() {
-    const gameId = this.props.match.params.id
-    const path = this.props.match.path
-    let option = null
-    if(path.startsWith('/join')) {
-      option = 'join'
-    } else if(path.startsWith('/new')) {
-      option = 'new'
-    }
-
-    this.setState({ gameId, option })
+    const { option, gameId } = this.props
+    this.setState({ option, gameId })
   }
 
   gameIdChanged = (e) => {
@@ -196,16 +190,4 @@ const styles = {
   }
 }
 
-const mapStateToProps = state => {
-  return {}
-}
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  createGame,
-  joinGame
-}, dispatch)
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Radium(Landing))
+export default Radium(Landing)

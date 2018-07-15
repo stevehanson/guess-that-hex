@@ -12,7 +12,11 @@ const ResultBox = ({ player }) => {
       <div style={styles.boxGuess}>{player.guess}</div>
       <div style={styles.boxName}>{player.name}</div>
       {player.winner && (
-        <h2 style={styles.winner}>🎉 Winner! 🎉</h2>
+        <h2 style={styles.winner}>
+          <span role="img" aria-label="tada">🎉</span>&nbsp;
+          Winner!&nbsp;
+          <span role="img" aria-label="tada">🎉</span>&nbsp;
+        </h2>
       )}
     </div>
   )

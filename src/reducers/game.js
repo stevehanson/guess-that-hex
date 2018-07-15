@@ -90,10 +90,6 @@ const subscribeToAndJoinGame = (dispatch, getState, id, name) => {
   })
 }
 
-const updateGame = (vals) => {
-  firebase.updateGame(vals)
-}
-
 export const submitGuess = (guess) => {
   firebase.submitGuess(guess)
   return { type: SUBMIT_GUESS, payload: { guess }}

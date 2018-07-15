@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 import { StyleRoot } from 'radium';
 import store, { history } from './store'
-import Landing from './Landing'
+import Landing from './containers/Landing'
 import Game from './containers/Game'
 
 class AppContainer extends Component {

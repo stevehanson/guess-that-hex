@@ -52,13 +52,13 @@ class GameGuessing extends Component {
           <div style={styles.activityContainer}>
             {!!donePlayers.length && (
               <div style={styles.activity}>
-                <i style={[styles.icon, styles.success]}>🌞</i>
+                <span role="img" aria-label="Sun with face" style={[styles.icon, styles.success]}>🌞</span>
                 {donePlayers.join(', ')} {donePlayers.length === 1 ? 'has' : 'have'} submitted their guess{donePlayers.length !== 1 && 'es'}!
               </div>
             )}
             {!!waitingOn.length && (
               <div style={styles.activity}>
-                <i style={[styles.icon, styles.warn]}>🌝</i>
+                <span role="img" aria-label="waiting moon" style={[styles.icon, styles.warn]}>🌝</span>
                 Still waiting on&nbsp;
                 {waitingOn.join(', ')}
               </div>

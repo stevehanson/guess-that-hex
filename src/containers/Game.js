@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Radium from 'radium'
 import {
   startGame,
   resetGame,
@@ -11,8 +10,6 @@ import {
 import GameScreen from '../components/Game'
 
 class Game extends Component {
-  state = {}
-
   componentDidMount() {
     // redirect if someone navigates straight here
     // if(!this.props.players.length) {
@@ -39,4 +36,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Radium(Game))
+)(Game)
