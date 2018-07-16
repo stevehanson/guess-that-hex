@@ -1,6 +1,7 @@
 import React from 'react'
+import Radium from 'radium'
 import tinycolor from 'tinycolor2'
-import ResultBox from '../ResultBox'
+import ResultBox from './ResultBox'
 import globalStyle from '../globalStyle'
 
 const GameResults = ({ players, hex }) => {
@@ -17,10 +18,11 @@ const GameResults = ({ players, hex }) => {
       </div>
       <div style={styles.boxesContainer}>
         <div style={styles.boxes}>
-          {players && players.map(player => (
+          {players && players.map((player, index) => (
             <ResultBox
               key={player.id}
               player={player}
+              winner={index === 0}
             />
           ))}
         </div>
@@ -51,26 +53,28 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     pointerEvents: 'none',
-    '@media (minWidth: 500px)': {
-      fontSize: '1em'
-    },
-    '@media (minWidth: 700px)': {
+    '@media (min-width: 500px)': {
       fontSize: '1.3em'
+    },
+    '@media (min-width: 700px)': {
+      fontSize: '2em'
     }
   },
   colorText: {
+    textTransform: 'uppercase',
     width: '18px',
-    wordWrap: 'break-word'
+    wordWrap: 'break-word',
+    '@media (min-width: 500px)': {
+      width: 'auto',
+      wordWrap: 'normal',
+      letterSpacing: '0.05em'
+    }
   },
   boxes: {
-    // display: 'grid',
-    // gridTemplateColumns: '1fr 1fr',
-    // gridTemplateRows: 'auto',
-    // height: 'calc(100vh - 52px)'
     display: 'flex',
     flexDirection: 'column',
     minHeight: `calc(100vh - ${globalStyle.navHeight})`,
   },
 }
 
-export default GameResults
+export default Radium(GameResults)

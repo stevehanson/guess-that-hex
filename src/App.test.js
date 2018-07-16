@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { shallow, mount } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import App from './App'
-import Landing from './Landing'
+import Landing from './components/Landing'
 
 beforeAll(() => {
   window.localStorage = { getItem: ()=>{}, setItem: ()=>{} }

@@ -1,5 +1,6 @@
 import tinycolor from 'tinycolor2'
 import { sample, sampleSize } from 'lodash'
+import { sortPlayersByClosest } from '../util/colorCalculations'
 
 const names = [
   'Stephen', 'Dawn', 'Fraser', 'Sam', 'Kyle', 'A really Long Name', 
@@ -21,7 +22,7 @@ export const getPlayer = (options = {}) => {
   }
 }
 
-export const getPlayers = (n, options = {}) => {
+export const getPlayers = (n, targetHex, options = {}) => {
   const players = []
   const playerNames = sampleSize(names, n)
   for(let i = 0; i < n; i++) {
@@ -29,5 +30,10 @@ export const getPlayers = (n, options = {}) => {
     players.push(getPlayer(opts))
   }
 
-  return players
+  if(targetHex) {
+    return sortPlayersByClosest(targetHex, players)
+  } else {
+    return players
+
+  }
 } 

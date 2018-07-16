@@ -101,7 +101,8 @@ const styles = {
     width: '200px',
     height: '61px',
     margin: '0.75em 0 -1.4em',
-    zIndex: '1'
+    zIndex: '1',
+    position: 'relative'
   },
   rightNavLink: {
     marginTop: '1em',

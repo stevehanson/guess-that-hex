@@ -1,6 +1,6 @@
 import firebase from './setup';
 import { compact } from 'lodash'
-import { closestColor } from '../util/colorCalculations'
+import { sortPlayersByClosest } from '../util/colorCalculations'
 
 class Firebase {
   createGame(hex) {
@@ -20,14 +20,12 @@ class Firebase {
     this.gameRef = firebase.database().ref(`games/${gameId}`)
     this.gameRef.on('value', snapshot => {
       const game = snapshot.val()
-      const players = Object.entries(game.players || {}).map(([id, player]) => (
+      let players = Object.entries(game.players || {}).map(([id, player]) => (
         { ...player, id }
       ))
 
       if(game.revealed) {
-        const colors = compact(players.map(p => p.guess))
-        const winnerColor = closestColor(game.hex, colors)
-        players.find(p => p.guess === winnerColor).winner = true
+        players = sortPlayersByClosest(game.hex, players)
       }
 
       game.players = players

@@ -3,8 +3,7 @@ import React from 'react';
 import { storiesOf, addDecorator } from '@storybook/react';
 import { StyleRoot } from 'radium';
 
-
-import WaitingForPlayers from '../WaitingForPlayers'
+import WaitingForPlayers from '../components/WaitingForPlayers'
 import GameGuessing from '../GameGuessing'
 import GameResults from '../components/GameResults'
 import Landing from '../components/Landing'
@@ -21,15 +20,33 @@ const RadiumDecorator = (storyFn) => (
 addDecorator(RadiumDecorator)
 
 storiesOf('GameResults', module)
-  .add('with results', () => (
-    <GameResults players={getPlayers(3)} hex={hex()} />
-  ))
-  .add('with medium number of players', () => (
-    <GameResults players={getPlayers(6)} hex={hex()} />
-  ))
-  .add('with lots of players', () => (
-    <GameResults players={getPlayers(15)} hex={hex()} />
-  ));
+  .add('with results', () => {
+    const gameHex = hex()
+    return (
+      <GameResults
+        players={getPlayers(3, gameHex)}
+        hex={gameHex}
+      />
+    )
+  })
+  .add('with medium number of players', () => {
+    const gameHex = hex()
+    return (
+      <GameResults
+        players={getPlayers(6, gameHex)}
+        hex={gameHex}
+      />
+    )
+  })
+  .add('with lots of players', () => {
+    const gameHex = hex()
+    return (
+      <GameResults
+        players={getPlayers(25, gameHex)}
+        hex={gameHex}
+      />
+    )
+  });
 
 storiesOf('Landing', module)
   .add('initial state', () => (

@@ -27,7 +27,7 @@ class GameGuessing extends Component {
 
     return (
       <div style={styles.container}>
-        <h2>Time to guess..</h2>
+        <h2 style={styles.heading}>Time to guess..</h2>
         <p>Enter your best guess. When you are finished, click "submit".</p>
         <div style={[styles.hex, { backgroundColor: hex }]} />
 
@@ -94,6 +94,9 @@ const styles = {
   },
   formGroup: {
     marginBottom: '2em'
+  },
+  heading: {
+    marginTop: 0
   },
   activityContainer: {
     margin: '2em 0'

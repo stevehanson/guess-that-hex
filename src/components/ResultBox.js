@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import Radium from 'radium'
 import tinycolor from 'tinycolor2'
 
-const ResultBox = ({ player }) => {
+const ResultBox = ({ player, winner }) => {
   const styles = getStyles(player.guess)
   const hex = tinycolor(player.guess).toHexString()
   const boxStyle = [styles.box, { backgroundColor: hex }]
@@ -11,7 +12,7 @@ const ResultBox = ({ player }) => {
     <div className="ResultBox" style={boxStyle}>
       <div style={styles.boxGuess}>{player.guess}</div>
       <div style={styles.boxName}>{player.name}</div>
-      {player.winner && (
+      {winner && (
         <h2 style={styles.winner}>
           <span role="img" aria-label="tada">🎉</span>&nbsp;
           Winner!&nbsp;
@@ -22,24 +23,32 @@ const ResultBox = ({ player }) => {
   )
 }
 
+ResultBox.propTypes = {
+  player: PropTypes.object.isRequired,
+  winner: PropTypes.bool
+}
+
 const getStyles = (guess) => (
   {
     box: {
-      border: '1px solid #f3f3f3',
+      borderBottom: '1px solid #f3f3f3',
       display: 'flex',
       flex: 1,
-      minHeight: '110px',
+      minHeight: '125px',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      position: 'relative'
+      position: 'relative',
+      '@media (min-width: 500px)': {
+        minHeight: '150px'
+      }
     },
     boxGuess: {
       fontSize: '1.5em',
       textTransform: 'uppercase',
       fontWeight: '800',
       color: tinycolor.mostReadable(guess, ['#444', '#fff']).toHexString(),
-      marginBottom: '0.5em',
+      marginBottom: '0.3em',
       '@media (min-width: 500px)': {
         fontSize: '2em'
       }
@@ -55,12 +64,14 @@ const getStyles = (guess) => (
     winner: {
       color: tinycolor.mostReadable(guess, ['#444', '#fff']).toHexString(),
       position: 'absolute',
-      top: 0,
+      top: '-0.4em',
       left: '1em',
-      fontSize: '1em',
-      fontWeight: '400',
+      fontSize: '0.8em',
+      fontStyle: 'italic',
+      fontWeight: '600',
+      textTransform: 'uppercase',
       '@media (min-width: 500px)': {
-        fontSize: '1.2em'
+        fontSize: '1em'
       }
     }
   }
