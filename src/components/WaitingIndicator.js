@@ -27,7 +27,7 @@ class WaitingIndicator extends Component {
     const { loadingDots} = this.state
 
     return (
-      <span style={styles.loadingDots}>{loadingDots}</span>
+      <span style={styles.loadingDots}>{loadingDots}&nbsp;</span>
     )
   }
 }

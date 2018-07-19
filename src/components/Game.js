@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import GameGuessing from '../GameGuessing'
+import GameGuessing from './GameGuessing'
 import GameResults from './GameResults'
 import WaitingForPlayers from './WaitingForPlayers'
 import globalStyle from '../globalStyle'

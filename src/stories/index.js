@@ -4,7 +4,7 @@ import { storiesOf, addDecorator } from '@storybook/react';
 import { StyleRoot } from 'radium';
 
 import WaitingForPlayers from '../components/WaitingForPlayers'
-import GameGuessing from '../GameGuessing'
+import GameGuessing from '../components/GameGuessing'
 import GameResults from '../components/GameResults'
 import Landing from '../components/Landing'
 import { hex, getPlayers } from './utils'

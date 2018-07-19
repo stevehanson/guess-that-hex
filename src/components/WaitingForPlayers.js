@@ -36,8 +36,8 @@ class WaitingForPlayers extends Component {
             <div style={styles.gameId}>
               <pre>{joinUrl}</pre>
             </div>
-            <button onClick={e => this.copyText(joinUrl)}>Copy</button>
-            {copied && <span>copied!</span>}
+            <Button size="small" onClick={e => this.copyText(joinUrl)}>Copy</Button>
+            {copied && <span style={styles.copied}>copied!</span>}
           </div>
         )}
         <ul style={styles.activity}>
@@ -81,10 +81,9 @@ const styles = {
     marginTop: '2em',
     textAlign: 'center',
   },
-  gameIdText: {
-
-  },
-  gameId: {
+  copied: {
+    marginLeft: '1em',
+    fontSize: '0.9em'
   }
 }
 

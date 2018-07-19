@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import globalStyle from './globalStyle'
-import Button from './shared/button'
+import globalStyle from '../globalStyle'
+import Button from '../shared/button'
 import Radium from 'radium'
 import tinycolor from 'tinycolor2'
 
