@@ -2,6 +2,16 @@ const globalStyle = {
   padding: {
     default: '2em'
   },
+  pageBg: {
+    backgroundColor: '#f5f5f5',
+    flex: 1,
+    padding: '12px'
+  },
+  page: {
+    display: 'flex',
+    minHeight: '100vh',
+    flexDirection: 'column'
+  },
   borderRadius: '4px',
   navHeight: '55px',
   colors: {

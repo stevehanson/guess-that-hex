@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import MenuIcon from '@material-ui/icons/Menu';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import logo from '../logo.png';
+import globalStyle from '../globalStyle'
 
 class Landing extends Component {
   static propTypes = {
@@ -149,9 +146,7 @@ const styles = theme => ({
     maxWidth: '550px'
   },
   page: {
-    display: 'flex',
-    minHeight: '100vh',
-    flexDirection: 'column'
+    ...globalStyle.page
   },
   pageContainer: {
     marginTop: theme.spacing.unit * 2,
@@ -172,9 +167,7 @@ const styles = theme => ({
     maxWidth: '310px'
   },
   grid: {
-    backgroundColor: '#f5f5f5',
-    flex: 1,
-    padding: '12px'
+    ...globalStyle.pageBg
   },
   form: {
     marginTop: theme.spacing.unit * 2,
