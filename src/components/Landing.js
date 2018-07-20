@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import Radium from 'radium'
-import Button from '../shared/button'
+import Button from '@material-ui/core/Button';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import MenuIcon from '@material-ui/icons/Menu';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
 import logo from '../logo.png';
-import globalStyle from '../globalStyle'
 
 class Landing extends Component {
   static propTypes = {
@@ -36,18 +43,23 @@ class Landing extends Component {
   }
 
   renderOptions = () => {
+    const { classes } = this.props
+
     return (
-      <div style={styles.actions}>
+      <div className={classes.actions}>
         <Button
+          variant="contained"
+          color="secondary"
           id="new"
           key="new"
-          style={{...styles.button, ...styles.actionButton}}
+          className={classes.actionButton}
           onClick={() => this.setState({ option: 'new' })}
         >New Game</Button>
         <Button
+          variant="contained"
+          color="secondary"
           id="join"
           key="join"
-          style={{...styles.button, ...styles.actionButton}}
           onClick={() => this.setState({ option: 'join' })}
         >Join Game</Button>
       </div>
@@ -55,7 +67,7 @@ class Landing extends Component {
   }
 
   renderForm = () => {
-    const { createGame, joinGame } = this.props
+    const { classes, createGame, joinGame } = this.props
     const { option, gameId, name } = this.state
     const buttonText = (option === 'new') ? 'Create Game' : 'Join Game'
     const submit = (e) => {
@@ -64,89 +76,127 @@ class Landing extends Component {
     }
 
     return (
-      <form style={styles.form} onSubmit={submit}>
-        <div style={styles.formGroup}>
-          <label style={[globalStyle.label, styles.label]} htmlFor="name">Your Name</label>
-          <input style={[globalStyle.input, styles.input]} value={name} onChange={this.nameChanged} />
-        </div>
+      <form className={classes.form} onSubmit={submit}>
+        <TextField
+          label="Your Name"
+          className={classes.textField}
+          margin="normal"
+          value={name}
+          helperText="Something to uniquely identify you"
+          onChange={this.nameChanged}
+          required
+        />
         {option === 'join' && (
-          <div style={styles.formGroup}>
-            <label style={[globalStyle.label, styles.label]}  htmlFor="gameid">Game ID</label>
-            <input style={[globalStyle.input, styles.input]} value={gameId} onChange={this.gameIdChanged} />
-          </div>
+          <TextField
+            label="Game ID"
+            className={classes.textField}
+            margin="normal"
+            value={gameId}
+            onChange={this.gameIdChanged}
+            required
+          />
         )}
 
-        <Button type="submit" style={styles.submit}>{buttonText}</Button>
-        <a
-          role="button"
-          style={styles.back}
-          onClick={() => this.setState({ option: null })}
-          key="back"
-        >
-          &laquo; Back
-        </a>
+        <div className={classes.formActions}>
+          <Button
+            type="submit"
+            style={styles.submit}
+            variant="contained"
+            color="secondary"
+          >
+            {buttonText}
+          </Button>
+          <Button
+            className={classes.back}
+            onClick={() => this.setState({ option: null })}
+            key="back"
+          >
+            &laquo; Back
+          </Button>
+        </div>
       </form>
     )
   }
 
   render() {
     const { option } = this.state
+    const { classes } = this.props
 
     return (
-      <div style={styles.page}>
-        <div style={styles.container}>
-          <div style={styles.header}>
-            <img src={logo} style={styles.logo} alt="guess that hex" />
-          </div>
-          <div style={styles.content}>
-            <h2 style={styles.heading}>Welcome to Guess that Hex!</h2>
-            {option ? this.renderForm() : this.renderOptions()}
-          </div>
-        </div>
+      <div className={classes.page}>
+        <AppBar color="primary" position="static">
+          <Toolbar>
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" className={[classes.appTitle, classes.flex]}>
+              Guess that Hex
+            </Typography>
+            <Button color="inherit">Login</Button>
+          </Toolbar>
+        </AppBar>
+        <Grid className={classes.grid} container justify="center">
+          <Grid item xs={12} className={classes.row}>
+            <Paper className={classes.pageContainer}>
+              <Typography gutterBottom={true} align="center" variant="headline" component="h3">
+                Welcome, friend
+              </Typography>
+              <Typography align="center" variant="body1" component="p">
+                Let's get started guessing some hexes!
+              </Typography>
+              {option ? this.renderForm() : this.renderOptions()}
+            </Paper>
+          </Grid>
+        </Grid>
       </div>
     )
   }
 }
 
-const styles = {
+//<img src={logo} style={styles.logo} alt="guess that hex" />
+
+const styles = theme => ({
+  appTitle: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.3rem'
+    },
+  },
   page: {
-    backgroundColor: 'tomato',
-    minHeight: '100vh',
-    width: '100%',
-    padding: '2em 0',
-    '@media (min-width: 500px)': {
-      padding: '4em 0',
-    }
-  },
-  container: {
-    backgroundColor: '#fafafa',
-    borderRadius: '4px',
-    overflow: 'hidden',
-    width: "540px",
-    maxWidth: "90%",
-    margin: '2em auto',
-    '@media (min-width: 500px)': {
-      margin: '4em auto',
-    }
-  },
-  header: {
     display: 'flex',
-    justifyContent: 'center',
-    background: '#eee',
-    padding: '1.7em 0 0'
+    minHeight: '100vh',
+    flexDirection: 'column'
   },
-  heading: {
-    marginBottom: '2em',
-    textAlign: 'center'
+  row: {
+    maxWidth: '550px'
+  },
+  pageContainer: {
+    marginTop: theme.spacing.unit * 2,
+    padding: '32px',
+    paddingTop: '16px',
+    [theme.breakpoints.up('md')]: {
+      padding: '50px',
+      paddingTop: '32px',
+    },
+  },
+  textField: {
+    width: '100%',
+    maxWidth: '350px'
+  },
+  formActions: {
+    marginTop: '1.5em',
+    width: '100%',
+    maxWidth: '310px'
+  },
+  grid: {
+    backgroundColor: '#f5f5f5',
+    flex: 1,
+    padding: '12px'
   },
   form: {
-    marginTop: '2em'
-  },
-  content: {
-    padding: '2em 1em',
-    '@media (min-width: 500px)': {
-      padding: '2em 4em'
-    }
+    marginTop: theme.spacing.unit * 2,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   logo: {
     width: '300px',
@@ -158,7 +208,7 @@ const styles = {
     marginBottom: '2em'
   },
   formGroup: {
-    marginBottom: '1.5em'
+    // marginBottom: '1.5em'
   },
   label: {
     display: 'block',
@@ -170,12 +220,7 @@ const styles = {
   },
   back: {
     color: "#888",
-    marginLeft: '1em',
-    textDecoration: 'none',
-    ':hover': {
-      color: globalStyle.colors.primary,
-      transition: 'all 200ms'
-    }
+    marginLeft: theme.spacing.unit,
   },
   submit: {
     marginTop: '1.5em'
@@ -187,7 +232,17 @@ const styles = {
   },
   actionButton: {
     margin: '0 0.5em'
-  }
-}
+  },
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+})
 
-export default Radium(Landing)
+export default withStyles(styles)(Landing)

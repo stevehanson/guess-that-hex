@@ -2,6 +2,8 @@ import React from 'react';
 
 import { storiesOf, addDecorator } from '@storybook/react';
 import { StyleRoot } from 'radium';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from '../theme'
 
 import WaitingForPlayers from '../components/WaitingForPlayers'
 import GameGuessing from '../components/GameGuessing'
@@ -17,7 +19,14 @@ const RadiumDecorator = (storyFn) => (
   </StyleRoot>
 );
 
+const MaterialDecorator = (storyFn) => (
+  <MuiThemeProvider theme={theme}>
+    { storyFn() }
+  </MuiThemeProvider>
+);
+
 addDecorator(RadiumDecorator)
+addDecorator(MaterialDecorator )
 
 storiesOf('GameResults', module)
   .add('with results', () => {
@@ -61,6 +70,13 @@ storiesOf('Landing', module)
       joinGame={noop}
       option="join"
       gameId="12345"
+    />
+  ))
+  .add('creating game', () => (
+    <Landing
+      createGame={noop}
+      joinGame={noop}
+      option="create"
     />
   ))
 
