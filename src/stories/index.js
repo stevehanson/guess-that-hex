@@ -9,6 +9,7 @@ import WaitingForPlayers from '../components/WaitingForPlayers'
 import GameGuessing from '../components/GameGuessing'
 import GameResults from '../components/GameResults'
 import Landing from '../components/Landing'
+import Page from '../components/Page'
 import { hex, getPlayers } from './utils'
 import '../index.css'
 
@@ -27,6 +28,13 @@ const MaterialDecorator = (storyFn) => (
 
 addDecorator(RadiumDecorator)
 addDecorator(MaterialDecorator )
+
+storiesOf('Page', module)
+  .add('with basic nav', () => {
+    return (
+      <Page />
+    )
+  })
 
 storiesOf('GameResults', module)
   .add('with results', () => {

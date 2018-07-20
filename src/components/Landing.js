@@ -124,17 +124,6 @@ class Landing extends Component {
 
     return (
       <div className={classes.page}>
-        <AppBar color="primary" position="static">
-          <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="title" color="inherit" className={[classes.appTitle, classes.flex]}>
-              Guess that Hex
-            </Typography>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
         <Grid className={classes.grid} container justify="center">
           <Grid item xs={12} className={classes.row}>
             <Paper className={classes.pageContainer}>
@@ -156,18 +145,13 @@ class Landing extends Component {
 //<img src={logo} style={styles.logo} alt="guess that hex" />
 
 const styles = theme => ({
-  appTitle: {
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '1.3rem'
-    },
+  row: {
+    maxWidth: '550px'
   },
   page: {
     display: 'flex',
     minHeight: '100vh',
     flexDirection: 'column'
-  },
-  row: {
-    maxWidth: '550px'
   },
   pageContainer: {
     marginTop: theme.spacing.unit * 2,
@@ -204,12 +188,6 @@ const styles = theme => ({
     height: '92px',
     marginBottom: '-1.1em'
   },
-  createContainer: {
-    marginBottom: '2em'
-  },
-  formGroup: {
-    // marginBottom: '1.5em'
-  },
   label: {
     display: 'block',
     fontWeight: '600',
@@ -235,14 +213,7 @@ const styles = theme => ({
   },
   root: {
     flexGrow: 1,
-  },
-  flex: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
+  }
 })
 
 export default withStyles(styles)(Landing)
