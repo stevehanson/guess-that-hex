@@ -3,7 +3,8 @@ const globalStyle = {
     default: '2em'
   },
   pageBg: {
-    backgroundColor: '#f5f5f5',
+    // backgroundColor: '#f5f5f5',
+    backgroundColor: 'tomato',
     flex: 1,
     padding: '12px'
   },

@@ -46,7 +46,7 @@ class Landing extends Component {
       <div className={classes.actions}>
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           id="new"
           key="new"
           className={classes.actionButton}
@@ -54,7 +54,7 @@ class Landing extends Component {
         >New Game</Button>
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           id="join"
           key="join"
           onClick={() => this.setState({ option: 'join' })}
@@ -139,7 +139,6 @@ class Landing extends Component {
   }
 }
 
-//<img src={logo} style={styles.logo} alt="guess that hex" />
 
 const styles = theme => ({
   row: {
@@ -174,12 +173,6 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
-  },
-  logo: {
-    width: '300px',
-    maxWidth: '90%',
-    height: '92px',
-    marginBottom: '-1.1em'
   },
   label: {
     display: 'block',
