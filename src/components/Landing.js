@@ -46,7 +46,7 @@ class Landing extends Component {
       <div className={classes.actions}>
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           id="new"
           key="new"
           className={classes.actionButton}
@@ -54,7 +54,7 @@ class Landing extends Component {
         >New Game</Button>
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           id="join"
           key="join"
           onClick={() => this.setState({ option: 'join' })}
@@ -123,7 +123,7 @@ class Landing extends Component {
       <div className={classes.page}>
         <Grid className={classes.grid} container justify="center">
           <Grid item xs={12} className={classes.row}>
-            <Paper className={classes.pageContainer}>
+            <Paper elevation={2} className={classes.pageContainer}>
               <Typography gutterBottom={true} align="center" variant="headline" component="h3">
                 Welcome, friend
               </Typography>

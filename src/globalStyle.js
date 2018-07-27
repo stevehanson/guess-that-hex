@@ -3,8 +3,7 @@ const globalStyle = {
     default: '2em'
   },
   pageBg: {
-    backgroundColor: '#f5f5f5',
-    // backgroundColor: 'tomato',
+    background: 'linear-gradient(-45deg, rgba(246,170,48,0.8) 0%, rgba(255,100,54,0.8) 100%)',
     flex: 1,
     padding: '12px'
   },
@@ -17,7 +16,8 @@ const globalStyle = {
   navHeight: '55px',
   colors: {
     almostWhite: '#fafafa',
-    primary: 'tomato'
+    primary: 'tomato', // #ff6346
+    secondary: '#40c9aa'
   },
   label: {
     display: 'block',

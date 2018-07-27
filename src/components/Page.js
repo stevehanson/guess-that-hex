@@ -7,7 +7,7 @@ import logo from '../logo.png';
 
 const Page = ({ classes, children, resetGame, revealed }) => (
   <div className={classes.page}>
-    <AppBar color="inherit" position="static">
+    <AppBar elevation={1} color="inherit" position="static">
       <Toolbar>
         {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"> */}
         {/*   <MenuIcon /> */}
