@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import globalStyle from '../globalStyle'
-import copy from 'clipboard-copy'
-import Radium from 'radium'
-import Button from '../shared/button'
 
 class WaitingIndicator extends Component {
   state = { loadingDots: '' }

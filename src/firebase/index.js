@@ -1,37 +1,16 @@
 import firebase from './setup';
-import { compact } from 'lodash'
-import { sortPlayersByClosest } from '../util/colorCalculations'
 
 class Firebase {
-  createGame(hex) {
+  createGame(gameVals) {
     const gamesRef = firebase.database().ref('games');
-    const gameRef = gamesRef.push({
-      hex,
-      started: false,
-      revealed: false,
-      players: []
-    })
-
+    const gameRef = gamesRef.push(gameVals)
     return gameRef.key
   }
 
   subscribeToAndJoinGame(gameId, playerName, onUpdate) {
     this.gameId = gameId
     this.gameRef = firebase.database().ref(`games/${gameId}`)
-    this.gameRef.on('value', snapshot => {
-      const game = snapshot.val()
-      let players = Object.entries(game.players || {}).map(([id, player]) => (
-        { ...player, id }
-      ))
-
-      if(game.revealed) {
-        players = sortPlayersByClosest(game.hex, players)
-      }
-
-      game.players = players
-      onUpdate(game)
-    });
-
+    this.gameRef.on('value', snapshot => onUpdate(snapshot.val()))
     this.addPlayerToGame(playerName)
   }
 

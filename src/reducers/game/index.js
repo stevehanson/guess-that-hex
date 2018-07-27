@@ -1,6 +1,7 @@
-import Firebase from '../firebase/index';
+import Firebase from '../../firebase/index';
 import tinycolor from 'tinycolor2'
 import { push } from 'connected-react-router'
+import { mapFirebaseGameToGame } from './util'
 
 export const START_GAME = 'game/start'
 export const CREATE_GAME = 'game/create'
@@ -51,15 +52,21 @@ export default function reducers(state = initialState, action) {
 export const createGame = (name) => {
   return (dispatch, getState) => {
     const hex = tinycolor.random().toHexString()
-    const id = firebase.createGame(hex)
+    const gameVals = {
+      hex,
+      started: false,
+      revealed: false,
+      players: []
+    }
 
-    subscribeToAndJoinGame(dispatch, getState, id, name)
+    const id = firebase.createGame(gameVals)
 
     dispatch({
       type: CREATE_GAME, 
-      payload: { id, hex }
+      payload: { ...gameVals, id }
     })
 
+    subscribeToAndJoinGame(dispatch, getState, id, name)
     dispatch(push(`/game/${id}`))
   }
 }
@@ -77,15 +84,13 @@ export const joinGame = (id, name) => {
 }
 
 const subscribeToAndJoinGame = (dispatch, getState, id, name) => {
-  firebase.subscribeToAndJoinGame(id, name, (gameVals) => {
-    // game was reset, clear guess
-    if(getState().game.revealed && !gameVals.revealed) {
-      gameVals.guess = null
-    }
+  firebase.subscribeToAndJoinGame(id, name, (firebaseGame) => {
+    const game = mapFirebaseGameToGame(firebaseGame, getState())
+    console.log('game updated', game, firebaseGame)
 
     dispatch({
       type: UPDATE_GAME,
-      payload: gameVals
+      payload: game
     })
   })
 }

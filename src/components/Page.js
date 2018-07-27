@@ -1,5 +1,4 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,13 +7,15 @@ import logo from '../logo.png';
 
 const Page = ({ classes, children, resetGame, revealed }) => (
   <div className={classes.page}>
-    <AppBar color="grey" position="static">
+    <AppBar color="inherit" position="static">
       <Toolbar>
         {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"> */}
         {/*   <MenuIcon /> */}
         {/* </IconButton> */}
 
-        <img src={logo} className={classes.logo} alt="guess that hex" />
+        <a href="/">
+          <img src={logo} className={classes.logo} alt="guess that hex" />
+        </a>
         {/* <Typography variant="title" color="inherit" className={`${classes.appTitle} ${classes.flex}`}> */}
         {/*   Guess that Hex */}
         {/* </Typography> */}
