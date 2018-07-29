@@ -4,25 +4,36 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import GamesIcon from '@material-ui/icons/Games';
+import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import globalStyle from '../globalStyle'
+import moment from 'moment'
 
 class Landing extends Component {
   static propTypes = {
     createGame: PropTypes.func.isRequired,
     joinGame: PropTypes.func.isRequired,
+    games: PropTypes.array,
+    loadingGames: PropTypes.bool
   }
 
   state = {
     option: '',
     gameId: '',
-    name: localStorage.getItem('gth:name') || ''
+    name: localStorage.getItem('gth:name') || '',
+    games: [],
+    loadingGames: true
   }
 
   componentDidMount() {
     const { option, gameId } = this.props
     this.setState({ option, gameId: gameId || '' })
+    this.props.fetchLatestGames()
   }
 
   gameIdChanged = (e) => {
@@ -113,9 +124,41 @@ class Landing extends Component {
     )
   }
 
+  renderGamesList() {
+    const { games } = this.props
+    if(!games || !games.length) {
+      return null
+    }
+
+    const { joinGame } = this.props
+
+    try {
+      return (
+        <List>
+          {games.map(game => {
+            const numPlayers = game.players.length
+            const now = moment()
+            return (
+              <ListItem
+                button
+                key={game.id}
+                onClick={e => joinGame(game.id, 'Bill')}
+              >
+                <ListItemIcon>
+                  <GamesIcon />
+                </ListItemIcon>
+                <ListItemText primary={`${numPlayers} players`} secondary={`started ${moment(game.startedAt).from(now)}`} />
+              </ListItem>
+            )
+          })}
+        </List>
+      )
+    } catch(err) { console.error(err) }
+  }
+
   render() {
     const { option } = this.state
-    const { classes } = this.props
+    const { classes, loadingGames } = this.props
 
     return (
       <div className={classes.page}>
@@ -130,6 +173,11 @@ class Landing extends Component {
               </Typography>
               {option ? this.renderForm() : this.renderOptions()}
             </Paper>
+            <div style={{ marginTop: '2em' }}>
+              {loadingGames ? (
+                <span>loading...</span>
+              ) : this.renderGamesList()}
+            </div>
           </Grid>
         </Grid>
       </div>

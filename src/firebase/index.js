@@ -1,4 +1,6 @@
-import firebase from './setup';
+import firebase from './setup'
+import { transformObjectToArrayWithId } from '../reducers/game/util'
+import moment from 'moment'
 
 class Firebase {
   createGame(gameVals) {
@@ -8,10 +10,19 @@ class Firebase {
   }
 
   subscribeToAndJoinGame(gameId, playerName, onUpdate) {
+    let playerAdded = false
     this.gameId = gameId
     this.gameRef = firebase.database().ref(`games/${gameId}`)
-    this.gameRef.on('value', snapshot => onUpdate(snapshot.val()))
-    this.addPlayerToGame(playerName)
+    this.gameRef.on('value', snapshot => {
+      const game = snapshot.val()
+      if(game && !playerAdded) {
+        playerAdded = true
+        this.addPlayerToGame(playerName)
+        return // this is necessary so we don't call onUpdate with race condition
+      }
+
+      onUpdate(game)
+    })
   }
 
   addPlayerToGame(name) {
@@ -35,6 +46,28 @@ class Firebase {
 
     })
     this.updateGame({ started: true, revealed: false, hex })
+  }
+
+  fetchLatestGames() {
+    return new Promise((resolve, reject) => {
+      const gamesRef = firebase.database().ref('games').limitToLast(10)
+      gamesRef.once('value', function(snapshot) {
+        let games = transformObjectToArrayWithId(snapshot.val())
+        games = games.map(game => {
+          game.players = transformObjectToArrayWithId(game.players)
+          return game
+        })
+
+        let currentGames = games.filter(game => {
+          const recent = moment().subtract(30, 'minutes')
+          const isCurrent = game.startedAt && moment(game.startedAt).isAfter(recent)
+          return isCurrent
+        })
+
+        console.log('latest games', currentGames)
+        resolve(currentGames.reverse())
+      });
+    })
   }
 }
 

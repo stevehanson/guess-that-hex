@@ -1,10 +1,16 @@
 import { sortPlayersByClosest } from '../../util/colorCalculations'
 
-export const mapFirebaseGameToGame = (firebaseGame, state) => {
-  let players = Object.entries(firebaseGame.players || {}).map(([id, player]) => (
-    { ...player, id }
-  ))
+export const transformObjectToArrayWithId = obj => (
+  Object.entries(obj || {}).map(([id, vals]) => ({ ...vals, id }))
+)
 
+export const mapFirebasePlayers = (firebaseGame) => ( 
+  transformObjectToArrayWithId(firebaseGame.players)
+)
+
+export const mapFirebaseGameToGame = (firebaseGame, state) => {
+  console.log('unmapped players', firebaseGame.hex, firebaseGame.players)
+  let players = mapFirebasePlayers(firebaseGame)
   if(firebaseGame.revealed) {
     players = sortPlayersByClosest(firebaseGame.hex, players)
   }
@@ -14,6 +20,8 @@ export const mapFirebaseGameToGame = (firebaseGame, state) => {
   if(state.game.revealed && !firebaseGame.revealed) {
     firebaseGame.guess = null
   }
+
+  console.log('mapped players', firebaseGame.players)
 
   return firebaseGame
 }

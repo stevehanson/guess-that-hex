@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { createGame, joinGame } from '../reducers/game'
+import { createGame, joinGame, fetchLatestGames } from '../reducers/game'
 import LandingScreen from '../components/Landing'
 
 class Landing extends Component {
@@ -34,8 +34,11 @@ class Landing extends Component {
   }
 }
 
-const mapStateToProps = state => ({})
-const mapDispatchToProps = { createGame, joinGame }
+const mapStateToProps = state => ({
+  games: state.game.latestGames,
+  loadingGames: state.game.loadingGames
+})
+const mapDispatchToProps = { createGame, joinGame, fetchLatestGames }
 
 export default connect(
   mapStateToProps,

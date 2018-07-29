@@ -2,6 +2,7 @@ import Firebase from '../../firebase/index';
 import tinycolor from 'tinycolor2'
 import { push } from 'connected-react-router'
 import { mapFirebaseGameToGame } from './util'
+import moment from 'moment'
 
 export const START_GAME = 'game/start'
 export const CREATE_GAME = 'game/create'
@@ -10,6 +11,9 @@ export const RESET_GAME = 'game/reset'
 export const JOIN_GAME = 'game/join'
 export const SUBMIT_GUESS = 'game/submit_guess'
 export const UPDATE_GAME = 'game/update'
+export const GAMES_FETCH_INIT = 'game/games_fetch_init'
+export const GAMES_FETCHED = 'game/games_fetched'
+export const GAMES_FETCH_FAILED = 'game/games_fetch_failed'
 
 const firebase = new Firebase()
 
@@ -44,6 +48,12 @@ export default function reducers(state = initialState, action) {
         revealed: false,
         hex: action.payload.hex
       }
+    case GAMES_FETCH_INIT: 
+      return { ...state, latestGames: [], loadingGames: true }
+    case GAMES_FETCHED:
+      return { ...state, latestGames: action.payload, loadingGames: false }
+    case GAMES_FETCH_FAILED: 
+      return { ...state, loadingGames: false }
     default:
       return state
   }
@@ -56,7 +66,8 @@ export const createGame = (name) => {
       hex,
       started: false,
       revealed: false,
-      players: []
+      players: [],
+      startedAt: moment().toISOString()
     }
 
     const id = firebase.createGame(gameVals)
@@ -85,6 +96,12 @@ export const joinGame = (id, name) => {
 
 const subscribeToAndJoinGame = (dispatch, getState, id, name) => {
   firebase.subscribeToAndJoinGame(id, name, (firebaseGame) => {
+    if(!firebaseGame) {
+      dispatch(push('/'))
+      alert('Whoopsy. I couldn\'t find the game you requested to join 😬')
+      return
+    }
+
     const game = mapFirebaseGameToGame(firebaseGame, getState())
     console.log('game updated', game, firebaseGame)
 
@@ -116,4 +133,16 @@ export const revealAnswer = () => {
 export const startGame = () => {
   firebase.updateGame({ started: true })
   return { type: START_GAME }
+}
+
+export const fetchLatestGames = () => {
+  return (dispatch, getState) => {
+    dispatch({ type: GAMES_FETCH_INIT })
+    firebase.fetchLatestGames().then(games => {
+      dispatch({ type: GAMES_FETCHED, payload: games })
+    }).catch(err => {
+      dispatch({ type: GAMES_FETCH_FAILED })
+    })
+    return { type: START_GAME }
+  }
 }
