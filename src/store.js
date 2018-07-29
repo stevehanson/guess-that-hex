@@ -3,16 +3,19 @@ import thunk from 'redux-thunk'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 import createHistory from 'history/createBrowserHistory'
 import gameReducers from './reducers/game'
-import logger from 'redux-logger'
 
 export const history = createHistory()
 const initialState = {}
 const enhancers = []
 const middleware = [
   thunk,
-  routerMiddleware(history),
-  logger
+  routerMiddleware(history)
 ]
+
+if (process.env.NODE_ENV === `development`) {
+  const { logger } = require(`redux-logger`);
+  middleware.push(logger);
+}
 
 if (process.env.NODE_ENV === 'development') {
   window.devToolsExtension && enhancers.push(window.devToolsExtension())
@@ -23,12 +26,12 @@ const composedEnhancers = compose(
   ...enhancers
 )
 
-const combinedReducers = combineReducers({
+const rootReducer = combineReducers({
   game: gameReducers
 })
 
 const store = createStore(
-    connectRouter(history)(combinedReducers),
+    connectRouter(history)(rootReducer),
     initialState,
     composedEnhancers
 )

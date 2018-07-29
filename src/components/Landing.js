@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import logo from '../logo.png';
 import globalStyle from '../globalStyle'
 
 class Landing extends Component {
@@ -15,18 +14,15 @@ class Landing extends Component {
     joinGame: PropTypes.func.isRequired,
   }
 
-  constructor(props) {
-    super()
-    this.state = {
-      option: '',
-      gameId: '',
-      name: localStorage.getItem('gth:name') || ''
-    }
+  state = {
+    option: '',
+    gameId: '',
+    name: localStorage.getItem('gth:name') || ''
   }
 
   componentDidMount() {
     const { option, gameId } = this.props
-    this.setState({ option, gameId })
+    this.setState({ option, gameId: gameId || '' })
   }
 
   gameIdChanged = (e) => {
@@ -43,11 +39,11 @@ class Landing extends Component {
     const { classes } = this.props
 
     return (
-      <div className={classes.actions}>
+      <div id="options" className={classes.actions}>
         <Button
           variant="contained"
           color="secondary"
-          id="new"
+          id="new-game"
           key="new"
           className={classes.actionButton}
           onClick={() => this.setState({ option: 'new' })}
@@ -55,7 +51,7 @@ class Landing extends Component {
         <Button
           variant="contained"
           color="secondary"
-          id="join"
+          id="join-game"
           key="join"
           onClick={() => this.setState({ option: 'join' })}
         >Join Game</Button>
@@ -75,6 +71,7 @@ class Landing extends Component {
     return (
       <form className={classes.form} onSubmit={submit}>
         <TextField
+          id="name"
           label="Your Name"
           className={classes.textField}
           margin="normal"
@@ -85,6 +82,7 @@ class Landing extends Component {
         />
         {option === 'join' && (
           <TextField
+            id="game-id"
             label="Game ID"
             className={classes.textField}
             margin="normal"
