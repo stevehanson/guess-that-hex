@@ -9,7 +9,7 @@ const globalStyle = {
   },
   page: {
     display: 'flex',
-    minHeight: '100vh',
+    flex: 1,
     flexDirection: 'column'
   },
   borderRadius: '4px',

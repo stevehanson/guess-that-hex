@@ -8,7 +8,7 @@ import logo from '../logo.png';
 const Page = ({ classes, children, resetGame, revealed }) => (
   <div className={classes.page}>
     <AppBar elevation={1} color="inherit" position="static">
-      <Toolbar>
+      <Toolbar className={classes.nav}>
         {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"> */}
         {/*   <MenuIcon /> */}
         {/* </IconButton> */}
@@ -20,7 +20,7 @@ const Page = ({ classes, children, resetGame, revealed }) => (
         {/*   Guess that Hex */}
         {/* </Typography> */}
         {revealed && (
-          <Button color="inherit" onClick={resetGame}>Play again</Button>
+          <Button color="secondary" onClick={resetGame}>Play again</Button>
         )}
       </Toolbar>
     </AppBar>
@@ -33,6 +33,10 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       fontSize: '1.3rem'
     },
+  },
+  nav: {
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   logo: {
     width: '190px',
