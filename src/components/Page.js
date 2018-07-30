@@ -2,26 +2,36 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom'
 import logo from '../logo.png';
 
 const Page = ({ classes, children, resetGame, revealed }) => (
   <div className={classes.page}>
     <AppBar elevation={1} color="inherit" position="static">
       <Toolbar className={classes.nav}>
-        {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"> */}
-        {/*   <MenuIcon /> */}
-        {/* </IconButton> */}
-
+      <div>
         <a href="/">
           <img src={logo} className={classes.logo} alt="guess that hex" />
         </a>
-        {/* <Typography variant="title" color="inherit" className={`${classes.appTitle} ${classes.flex}`}> */}
-        {/*   Guess that Hex */}
-        {/* </Typography> */}
+      </div>
+
+      <div>
+        <Button
+          className={classes.addButton}
+          color="secondary"
+          component={Link}
+          to="/new"
+        >
+          <AddIcon className={classes.addButtonIcon} />
+          <span className={classes.addButtonText}>New</span>
+        </Button>
         {revealed && (
           <Button color="secondary" onClick={resetGame}>Play again</Button>
         )}
+      </div>
       </Toolbar>
     </AppBar>
     {children}
@@ -50,10 +60,16 @@ const styles = theme => ({
   flex: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
+  addButton: {
+    padding: '8px 4px'
   },
+  addButtonIcon: {
+    marginRight: '3px'
+  },
+  addButtonText: {
+    display: 'inline-block',
+    marginTop: '1px'
+  }
 })
 
 export default withStyles(styles)(Page)

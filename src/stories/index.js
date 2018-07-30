@@ -70,12 +70,14 @@ storiesOf('Landing', module)
     <Landing
       createGame={noop}
       joinGame={noop}
+      fetchLatestGames={noop}
     />
   ))
   .add('with gameId passed', () => (
     <Landing
       createGame={noop}
       joinGame={noop}
+      fetchLatestGames={noop}
       option="join"
       gameId="12345"
     />
@@ -84,6 +86,7 @@ storiesOf('Landing', module)
     <Landing
       createGame={noop}
       joinGame={noop}
+      fetchLatestGames={noop}
       option="create"
     />
   ))

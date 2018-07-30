@@ -19,6 +19,13 @@ const globalStyle = {
     primary: 'tomato', // #ff6346
     secondary: '#40c9aa'
   },
+  heading1: {
+    fontSize: '2rem',
+    color: 'rgba(0, 0, 0, 0.87)'
+  },
+  heading2: {
+    fontSize: '1.3rem'
+  },
   label: {
     display: 'block',
     fontWeight: '600',

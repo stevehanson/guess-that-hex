@@ -67,7 +67,8 @@ export const createGame = (name) => {
       started: false,
       revealed: false,
       players: [],
-      startedAt: moment().toISOString()
+      createdAt: moment().toISOString(),
+      createdBy: name
     }
 
     const id = firebase.createGame(gameVals)

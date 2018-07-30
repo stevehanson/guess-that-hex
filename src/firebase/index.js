@@ -60,11 +60,9 @@ class Firebase {
 
         let currentGames = games.filter(game => {
           const recent = moment().subtract(30, 'minutes')
-          const isCurrent = game.startedAt && moment(game.startedAt).isAfter(recent)
-          return isCurrent
+          return game.createdAt && moment(game.createdAt).isAfter(recent)
         })
 
-        console.log('latest games', currentGames)
         resolve(currentGames.reverse())
       });
     })
