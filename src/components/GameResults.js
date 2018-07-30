@@ -18,7 +18,7 @@ const GameResults = ({ players, hex }) => {
       </div>
       <div style={styles.boxesContainer}>
         <div style={styles.boxes}>
-          {players && players.map((player, index) => (
+          {players && players.filter(p => p.guess).map((player, index) => (
             <ResultBox
               key={player.id}
               player={player}
