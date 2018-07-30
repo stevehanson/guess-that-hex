@@ -1,6 +1,4 @@
 import firebase from './setup'
-import { transformObjectToArrayWithId } from '../reducers/game/util'
-import moment from 'moment'
 
 class Firebase {
   createGame(gameVals) {
@@ -31,7 +29,6 @@ class Firebase {
   }
 
   submitGuess(guess) {
-    console.log(`submitting ${guess}`)
     this.playerRef.update({ guess })
   }
 
@@ -41,7 +38,6 @@ class Firebase {
 
   resetGame(hex, players) {
     players.forEach(player => {
-      console.log('updating player ', player.name)
       firebase.database().ref(`games/${this.gameId}/players/${player.id}`).update({ guess: null })
 
     })
@@ -51,20 +47,7 @@ class Firebase {
   fetchLatestGames() {
     return new Promise((resolve, reject) => {
       const gamesRef = firebase.database().ref('games').limitToLast(10)
-      gamesRef.once('value', function(snapshot) {
-        let games = transformObjectToArrayWithId(snapshot.val())
-        games = games.map(game => {
-          game.players = transformObjectToArrayWithId(game.players)
-          return game
-        })
-
-        let currentGames = games.filter(game => {
-          const recent = moment().subtract(30, 'minutes')
-          return game.createdAt && moment(game.createdAt).isAfter(recent)
-        })
-
-        resolve(currentGames.reverse())
-      });
+      gamesRef.once('value', snapshot => resolve(snapshot.val()))
     })
   }
 }

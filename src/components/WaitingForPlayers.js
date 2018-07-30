@@ -96,7 +96,7 @@ const styles = theme => ({
     maxWidth: '550px'
   },
   activity: {
-    margin: '2em 0',
+    margin: '2em 0 2em -20px',
     fontSize: '1.2em',
     lineHeight: '1.7',
   },

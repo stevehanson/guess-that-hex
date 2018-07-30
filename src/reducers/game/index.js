@@ -1,7 +1,7 @@
 import Firebase from '../../firebase/index';
 import tinycolor from 'tinycolor2'
 import { push } from 'connected-react-router'
-import { mapFirebaseGameToGame } from './util'
+import { mapFirebaseGameToGame, mapFirebaseGames  } from './util'
 import moment from 'moment'
 
 export const START_GAME = 'game/start'
@@ -139,7 +139,13 @@ export const startGame = () => {
 export const fetchLatestGames = () => {
   return (dispatch, getState) => {
     dispatch({ type: GAMES_FETCH_INIT })
-    firebase.fetchLatestGames().then(games => {
+    firebase.fetchLatestGames().then(firebaseGames => {
+      const recent = moment().subtract(30, 'minutes')
+      let games = mapFirebaseGames(firebaseGames)
+        .filter(game => 
+          game.createdAt && moment(game.createdAt).isAfter(recent)
+        ).reverse()
+
       dispatch({ type: GAMES_FETCHED, payload: games })
     }).catch(err => {
       dispatch({ type: GAMES_FETCH_FAILED })

@@ -20,6 +20,7 @@ const Page = ({ classes, children, resetGame, revealed }) => (
 
       <div>
         <Button
+          id="new-game"
           className={classes.addButton}
           color="secondary"
           component={Link}

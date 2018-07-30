@@ -8,6 +8,14 @@ export const mapFirebasePlayers = (firebaseGame) => (
   transformObjectToArrayWithId(firebaseGame.players)
 )
 
+export const mapFirebaseGames = (firebaseGames) => {
+  let games = transformObjectToArrayWithId(firebaseGames)
+  return games.map(game => {
+    game.players = transformObjectToArrayWithId(game.players)
+    return game
+  })
+}
+
 export const mapFirebaseGameToGame = (firebaseGame, state) => {
   console.log('unmapped players', firebaseGame.hex, firebaseGame.players)
   let players = mapFirebasePlayers(firebaseGame)
