@@ -13,29 +13,29 @@ const Page = ({ classes, children, resetGame, revealed, inGame }) => (
   <div className={classes.page}>
     <AppBar elevation={1} color="inherit" position="static">
       <Toolbar className={classes.nav}>
-      <div>
-        <a href="/">
-          <img src={logo} className={classes.logo} alt="guess that hex" />
-        </a>
-      </div>
+        <div>
+          <a href="/">
+            <img src={logo} className={classes.logo} alt="guess that hex" />
+          </a>
+        </div>
 
-      <div>
-        {!inGame && (
-          <Button
-            id="new-game"
-            className={classes.addButton}
-            color="secondary"
-            component={Link}
-            to="/new"
-          >
-            <AddIcon className={classes.addButtonIcon} />
-            <span className={classes.addButtonText}>New</span>
-          </Button>
-        )}
-        {revealed && (
-          <Button color="secondary" onClick={resetGame}>Play again</Button>
-        )}
-      </div>
+        <div>
+          {!inGame && (
+            <Button
+              id="new-game"
+              className={classes.addButton}
+              color="secondary"
+              component={Link}
+              to="/new"
+            >
+              <AddIcon className={classes.addButtonIcon} />
+              <span className={classes.addButtonText}>New</span>
+            </Button>
+          )}
+          {revealed && (
+            <Button color="secondary" onClick={resetGame}>Play again</Button>
+          )}
+        </div>
       </Toolbar>
     </AppBar>
     {children}
@@ -57,7 +57,10 @@ const styles = theme => ({
   },
   nav: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    width: '750px',
+    maxWidth: '100%',
+    margin: '0 auto'
   },
   logo: {
     width: '190px',
