@@ -11,7 +11,8 @@ const Page = (props) => (
 )
 
 const mapStateToProps = state => ({
-  revealed: state.game.revealed
+  revealed: state.game.revealed,
+  inGame: !!state.game.id
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
   resetGame,

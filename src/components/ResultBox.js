@@ -31,7 +31,7 @@ ResultBox.propTypes = {
 const getStyles = (guess) => (
   {
     box: {
-      borderBottom: '1px solid #f3f3f3',
+      borderBottom: '2.5px solid #f3f3f3',
       display: 'flex',
       flex: 1,
       minHeight: '125px',

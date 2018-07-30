@@ -45,13 +45,13 @@ class GameGuessing extends Component {
                 <div style={styles.formGroup}>
                   <TextField
                     label="Enter your guess"
-                    className={classes.textField}
+                    className={[classes.textField, creator ? 'masked-input' : ''].join(' ')}
                     margin="normal"
                     value={guess}
                     helperText="Hex code, eg: #ff00aa, #f0a"
                     onChange={e => this.setState({ guess: e.target.value })}
                     style={{ width: '100%', marginBottom: '2em' }}
-                    type={ creator ? 'password' : 'text' }
+                    type="text"
                     required
                   />
                   <input

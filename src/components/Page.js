@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
 import logo from '../logo.png';
 
-const Page = ({ classes, children, resetGame, revealed }) => (
+const Page = ({ classes, children, resetGame, revealed, inGame }) => (
   <div className={classes.page}>
     <AppBar elevation={1} color="inherit" position="static">
       <Toolbar className={classes.nav}>
@@ -19,16 +20,18 @@ const Page = ({ classes, children, resetGame, revealed }) => (
       </div>
 
       <div>
-        <Button
-          id="new-game"
-          className={classes.addButton}
-          color="secondary"
-          component={Link}
-          to="/new"
-        >
-          <AddIcon className={classes.addButtonIcon} />
-          <span className={classes.addButtonText}>New</span>
-        </Button>
+        {!inGame && (
+          <Button
+            id="new-game"
+            className={classes.addButton}
+            color="secondary"
+            component={Link}
+            to="/new"
+          >
+            <AddIcon className={classes.addButtonIcon} />
+            <span className={classes.addButtonText}>New</span>
+          </Button>
+        )}
         {revealed && (
           <Button color="secondary" onClick={resetGame}>Play again</Button>
         )}
@@ -38,6 +41,13 @@ const Page = ({ classes, children, resetGame, revealed }) => (
     {children}
   </div>
 )
+
+Page.propTypes = {
+  revealed: PropTypes.bool.isRequired,
+  inGame: PropTypes.bool.isRequired,
+  resetGame: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+}
 
 const styles = theme => ({
   appTitle: {

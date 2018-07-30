@@ -36,7 +36,7 @@ export default function reducers(state = initialState, action) {
     case REVEAL_ANSWER:
       return { ...state, revealed: true }
     case JOIN_GAME:
-      return { ...state, creator: false, gameId: action.payload.gameId }
+      return { ...state, creator: false, id: action.payload.id }
     case SUBMIT_GUESS:
       return { ...state, guess: action.payload.guess }
     case UPDATE_GAME:

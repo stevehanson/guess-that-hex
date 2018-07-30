@@ -4,6 +4,7 @@ import { storiesOf, addDecorator } from '@storybook/react';
 import { StyleRoot } from 'radium';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../theme'
+import moment from 'moment'
 
 import WaitingForPlayers from '../components/WaitingForPlayers'
 import GameGuessing from '../components/GameGuessing'
@@ -71,6 +72,8 @@ storiesOf('Landing', module)
       createGame={noop}
       joinGame={noop}
       fetchLatestGames={noop}
+      option="join"
+      games={[{ id: 'ab', createdAt: moment(), createdBy: 'Devon', players: [{}] }]}
     />
   ))
   .add('with gameId passed', () => (
@@ -120,7 +123,7 @@ storiesOf('WaitingForPlayers', module)
 
 
 storiesOf('GameGuessing', module)
-  .add('game', () => (
+  .add('game, as creator', () => (
     <GameGuessing
       hex={hex()}
       players={finishFirst(getPlayers(4))}
@@ -133,6 +136,6 @@ storiesOf('GameGuessing', module)
       hex={hex()}
       players={finishFirst(getPlayers(25))}
       onReveal={noop}
-      creator={true}
+      creator={false}
     />
   ));
