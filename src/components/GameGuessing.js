@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Radium from 'radium'
 import tinycolor from 'tinycolor2'
+import { pluralize } from '../util'
 
 class GameGuessing extends Component {
   state = { guess: '' }
@@ -28,6 +29,8 @@ class GameGuessing extends Component {
     const savedGuess = this.props.guess
     const donePlayers = players.filter(p => p.guess).map(p => p.name)
     const waitingOn = players.filter(p => !p.guess).map(p => p.name)
+    const waitingOnDisplay = players.length > 12 ? pluralize(waitingOn.length, 'player') : waitingOn.join(', ')
+    const donePlayersDisplay = players.length > 12 ? pluralize(donePlayers.length, 'player') : donePlayers.join(', ')
 
     return (
       <div className={classes.page}>
@@ -88,14 +91,14 @@ class GameGuessing extends Component {
                   {!!donePlayers.length && (
                     <div className={classes.activity}>
                       <span role="img" aria-label="Sun with face" className={[classes.icon, classes.success]}>🌞</span>
-                      {donePlayers.join(', ')} {donePlayers.length === 1 ? 'has' : 'have'} submitted their guess{donePlayers.length !== 1 && 'es'}!
+                      {donePlayersDisplay} {donePlayers.length === 1 ? 'has' : 'have'} submitted their guess{donePlayers.length !== 1 && 'es'}!
                     </div>
                   )}
                   {!!waitingOn.length && (
                     <div className={classes.activity}>
                       <span role="img" aria-label="waiting moon" className={[classes.icon, classes.warn]}>🌝</span>
                       Still waiting on&nbsp;
-                      {waitingOn.join(', ')}
+                      {waitingOnDisplay}
                     </div>
                   )}
                 </div>
