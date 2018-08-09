@@ -36,7 +36,7 @@ export default function reducers(state = initialState, action) {
     case REVEAL_ANSWER:
       return { ...state, revealed: true }
     case JOIN_GAME:
-      return { ...state, creator: false, id: action.payload.id }
+      return { ...state, creator: action.payload.creator, id: action.payload.id }
     case SUBMIT_GUESS:
       return { ...state, guess: action.payload.guess }
     case UPDATE_GAME:
@@ -83,12 +83,12 @@ export const createGame = (name) => {
   }
 }
 
-export const joinGame = (id, name) => {
+export const joinGame = (id, name, creator = false) => {
   return (dispatch, getState) => {
     subscribeToAndJoinGame(dispatch, getState, id, name)
     dispatch({
       type: JOIN_GAME,
-      payload: { id }
+      payload: { id, creator }
     })
 
     dispatch(push(`/game/${id}`))

@@ -20,7 +20,8 @@ class Landing extends Component {
     createGame: PropTypes.func.isRequired,
     joinGame: PropTypes.func.isRequired,
     games: PropTypes.array,
-    loadingGames: PropTypes.bool
+    loadingGames: PropTypes.bool,
+    joinAsCreator: PropTypes.bool
   }
 
   state = {
@@ -31,6 +32,7 @@ class Landing extends Component {
     loadingGames: true,
     manualJoin: false
   }
+
 
   componentDidMount() {
     const { gameId } = this.props
@@ -95,12 +97,12 @@ class Landing extends Component {
   }
 
   renderJoinForm = () => {
-    const { classes, joinGame, loadingGames } = this.props
+    const { classes, joinGame, loadingGames, joinAsCreator } = this.props
     const { gameId, name, manualJoin } = this.state
     const isNameStep = gameId || manualJoin
     const submit = (e) => {
       e.preventDefault()
-      joinGame(gameId, name)
+      joinGame(gameId, name, joinAsCreator)
     }
 
     return (

@@ -6,7 +6,8 @@ import LandingScreen from '../components/Landing'
 class Landing extends Component {
   state = {
     option: null,
-    gameId: null
+    gameId: null,
+    joinAsCreator: this.joinAsCreator()
   }
 
   componentWillMount() {
@@ -26,12 +27,30 @@ class Landing extends Component {
     }
   }
 
+  // back-door
+  joinAsCreator() {
+    const search = window.location.search
+    if(search.includes('creator=false')) {
+      localStorage.setItem('gth:creator', false)
+    }
+
+    const creator = search.includes('creator=true')
+      || localStorage.getItem('gth:creator') === 'true'
+
+    if(creator) {
+      localStorage.setItem('gth:creator', true)
+    }
+
+    return creator
+  }
+
   render() {
-    const { option, gameId } = this.state
+    const { option, gameId, joinAsCreator } = this.state
     return (
       <LandingScreen
         option={option}
         gameId={gameId}
+        joinAsCreator={joinAsCreator}
         {...this.props}
       />
     )
