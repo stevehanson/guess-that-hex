@@ -139,7 +139,7 @@ export const startGame = () => {
 export const fetchLatestGames = () => {
   return (dispatch, getState) => {
     dispatch({ type: GAMES_FETCH_INIT })
-    firebase.fetchLatestGames().then(firebaseGames => {
+    firebase.fetchLatestGames(firebaseGames => {
       const recent = moment().subtract(30, 'minutes')
       let games = mapFirebaseGames(firebaseGames)
         .filter(game => 
@@ -147,8 +147,6 @@ export const fetchLatestGames = () => {
         ).reverse()
 
       dispatch({ type: GAMES_FETCHED, payload: games })
-    }).catch(err => {
-      dispatch({ type: GAMES_FETCH_FAILED })
     })
     return { type: START_GAME }
   }

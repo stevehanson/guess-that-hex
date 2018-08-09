@@ -44,11 +44,9 @@ class Firebase {
     this.updateGame({ started: true, revealed: false, hex })
   }
 
-  fetchLatestGames() {
-    return new Promise((resolve, reject) => {
-      const gamesRef = firebase.database().ref('games').limitToLast(10)
-      gamesRef.once('value', snapshot => resolve(snapshot.val()))
-    })
+  fetchLatestGames(callback) {
+    const gamesRef = firebase.database().ref('games').limitToLast(10)
+    gamesRef.on('value', snapshot => callback(snapshot.val()))
   }
 }
 
