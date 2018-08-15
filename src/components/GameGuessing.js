@@ -57,13 +57,6 @@ class GameGuessing extends Component {
                     type="text"
                     required
                   />
-                  <input
-                    id="hex"
-                    style={[{ display: 'none' }, globalStyle.input, styles.input]}
-                    value={guess}
-                    onChange={e => this.setState({ guess: e.target.value })}
-                    placeholder="eg. #ff00ab"
-                  />
                 </div>
                 {!savedGuess && (
                   <Button
@@ -103,6 +96,28 @@ class GameGuessing extends Component {
                   )}
                 </div>
               </form>
+              <div className={classes.tips}>
+                <div className={classes.tipHeading}>
+                  <span role="img" aria-label="star" className={[classes.icon, classes.warn]}>⭐️</span>
+                  Reminder
+                </div>
+                <div>
+                  Hex codes use the format #RRGGBB (or #RGB), with each color represented
+                  as a two-digit hex number ranging from 00-FF.
+                </div>
+                <div className={classes.tipsExample}>
+                  Examples:&nbsp;
+                  <span className="tipExampleColor" style={{ color: '#f00' }}>
+                    #ff0000 (#f00)
+                  </span>,&nbsp;
+                  <span className="tipExampleColor" style={{ color: '#000' }}>
+                    #000
+                  </span>,&nbsp;
+                  <span className="tipExampleColor" style={{ color: '#0a8' }}>
+                    #0a8
+                  </span>&nbsp;
+                </div>
+              </div>
             </Paper>
           </Grid>
         </Grid>
@@ -164,6 +179,27 @@ const styles = theme => ({
   activity: {
     color: '#888',
     marginBottom: '0.5em'
+  },
+  tips: {
+    color: '#888',
+    marginBottom: '0.5em',
+    fontSize: '.9em',
+    lineHeight: 1.4,
+    borderRadius: '4px',
+    padding: '1em',
+    backgroundColor: '#fffbd8',
+  },
+  tipHeading: {
+    fontWeight: 600,
+    fontSize: '1.05em',
+    marginBottom: '1em'
+  },
+  tipsExample: {
+    marginTop: '1em'
+  },
+  tipExampleColor: {
+    display: 'inline-block',
+    marginRight: '0.2em'
   }
 })
 export default withStyles(styles)(Radium(GameGuessing))
