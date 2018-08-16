@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
 import logo from '../logo.png';
 
-const Page = ({ classes, children, resetGame, revealed, inGame }) => (
+const Page = ({ classes, children, creator, resetGame, revealed, inGame }) => (
   <div className={classes.page}>
     <AppBar elevation={1} color="inherit" position="static">
       <Toolbar className={classes.nav}>
@@ -32,7 +32,7 @@ const Page = ({ classes, children, resetGame, revealed, inGame }) => (
               <span className={classes.addButtonText}>New</span>
             </Button>
           )}
-          {revealed && (
+          {revealed && creator && (
             <Button color="secondary" onClick={resetGame}>Play again</Button>
           )}
         </div>
