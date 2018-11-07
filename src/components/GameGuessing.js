@@ -48,7 +48,7 @@ class GameGuessing extends Component {
                 <div style={styles.formGroup}>
                   <TextField
                     label="Enter your guess"
-                    className={[classes.textField, creator ? 'masked-input' : ''].join(' ')}
+                    className={classes.textField}
                     margin="normal"
                     value={guess}
                     helperText="Hex code, eg: #ff00aa, #f0a"

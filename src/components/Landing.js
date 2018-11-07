@@ -50,6 +50,15 @@ class Landing extends Component {
     localStorage.setItem('gth:name', name)
   }
 
+  renderPrivacyNote = () => (
+    <div className={this.props.classes.tips}>
+      <div>
+        <strong>Note:</strong> Games that are played on this site are
+        not private and can be accessible to others.
+      </div>
+    </div>
+  )
+
   renderCreateForm = () => {
     const { classes, createGame } = this.props
     const { name } = this.state
@@ -57,6 +66,7 @@ class Landing extends Component {
       e.preventDefault()
       createGame(name)
     }
+
 
     return (
       <form className={classes.form} onSubmit={submit}>
@@ -80,6 +90,8 @@ class Landing extends Component {
             onChange={this.nameChanged}
             required
           />
+
+          {this.renderPrivacyNote()}
         </div>
 
         <div className={classes.formActions}>
@@ -124,7 +136,6 @@ class Landing extends Component {
               className={classes.textField}
               margin="normal"
               value={name}
-              helperText="Something to uniquely identify you"
               onChange={this.nameChanged}
               required
             />
@@ -139,6 +150,9 @@ class Landing extends Component {
                 required
               />
             )}
+
+            {this.renderPrivacyNote()}
+
             <div className={classes.formActions}>
               <Button
                 type="submit"
@@ -171,11 +185,11 @@ class Landing extends Component {
   }
 
   renderGamesList() {
-    const { games, classes } = this.props
+    const { games } = this.props
     try {
       return (
         <div id="games-list">
-          {!games || !games.length && (
+          {(!games || !games.length) && (
             <Typography variant="body1" style={{ fontSize: '0.9rem', padding: '0 24px' }}>
               No recent games found. You can start a new one or join a game by ID.
             </Typography>
@@ -223,7 +237,7 @@ class Landing extends Component {
         <Grid className={classes.grid} container justify="center">
           <Grid item xs={12} className={classes.row}>
             <Paper elevation={2} className={classes.pageContainer}>
-              { option === 'join' ? 
+              { option === 'join' ?
                 this.renderJoinForm() :
                 this.renderCreateForm()
               }
@@ -309,7 +323,21 @@ const styles = theme => ({
   heading2: { ...globalStyle.heading2 },
   root: {
     flexGrow: 1,
-  }
+  },
+  tips: {
+    color: '#777',
+    margin: '1em 0',
+    fontSize: '.9em',
+    lineHeight: 1.4,
+    borderRadius: '4px',
+    padding: '1em',
+    backgroundColor: '#fffbd8',
+  },
+  tipHeading: {
+    fontWeight: 600,
+    fontSize: '1.05em',
+    marginBottom: '1em'
+  },
 })
 
 export default withStyles(styles)(Landing)

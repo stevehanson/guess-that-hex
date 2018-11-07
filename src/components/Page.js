@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
@@ -32,7 +31,7 @@ const Page = ({ classes, children, creator, resetGame, revealed, inGame }) => (
               <span className={classes.addButtonText}>New</span>
             </Button>
           )}
-          {revealed && creator && (
+          {revealed && (
             <Button color="secondary" onClick={resetGame}>Play again</Button>
           )}
         </div>
