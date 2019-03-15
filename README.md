@@ -4,7 +4,7 @@ _Guess that Hex_ is a multiplayer web-based game that I made just for fun. A col
 
 The game is built using React and Firebase for real-time communication. It's hosted on S3.
 
-![Gif of Guess that Hex](public/hex.gif?raw=true)
+![Gif of Guess that Hex](https://raw.githubusercontent.com/stevehanson/guess-that-hex/master/public/hex.gif?raw=true)
 
 ## Development
 
